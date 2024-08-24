@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "models/index"
+  get "stacks/index"
+  get "metrics/index"
   # Root path
   root 'pages#home'
 
