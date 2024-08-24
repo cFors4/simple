@@ -11,17 +11,22 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       line-height: 1.6;
-      color: #333;
-      max-width: 650px;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+    }
+    .container {
+      max-width: 800px;
       margin: 0 auto;
       padding: 20px;
-      background-color: #f9f9f9;
     }
     h1, h2 {
-      margin-top: 2em;
+      margin-top: 1.5em;
+      color: #ffffff;
     }
     a {
-      color: #0366d6;
+      color: #64b5f6;
       text-decoration: none;
     }
     a:hover {
@@ -34,22 +39,64 @@
       display: block;
       margin-bottom: 0.5em;
     }
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5em;
+      color: #ffffff;
+      cursor: pointer;
+    }
+    nav {
+      display: none;
+    }
+    nav.active {
+      display: block;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    nav ul li {
+      margin-bottom: 10px;
+    }
+    @media (max-width: 768px) {
+      .menu-btn {
+        display: block;
+      }
+      nav {
+        margin-top: 20px;
+      }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Connor Forsyth @ MinMaxFlow</h1>
+  <div class="container">
+    <header>
+      <h1>Connor Forsyth @ MinMaxFlow</h1>
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+      <nav id="main-nav">
+        <ul>
+          <li><a href="#who-am-i">Who Am I</a></li>
+          <li><a href="#minmaxflow">What is MinMaxFlow</a></li>
+          <li><a href="#together">What we can do together</a></li>
+          <li><a href="#how">How we can do it</a></li>
+          <li><a href="#learn-more">Learn more about me</a></li>
+          <li><a href="#discussion">Open a discussion</a></li>
+          <li><a href="#documentation">Public Documentation</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  </header>
-
-  <main>
-    <section class="section">
+    <main>
+    <section id="who-am-i" class="section">
       <h2>Who Am I</h2>
       <p>Software Engineer, Systems Engineer, Yogi, and Coach</p>
       <p>Creating enterprise software, startups, working on my self, and helping others do the same. My values align around living a life of perfecting one's own self to the greatest degree possible, to be thankful for one's gifts and then to pursue those gifts to see how you can best use them for mankind. Effectively Self-Actualisation.</p>
     </section>
 
-    <section class="section">
+    <section id="minmaxflow" class="section">
       <h2>What is MinMaxFlow</h2>
       <p>MinMaxFlow is about optimisation, learning the mins and maxs across relevant domains to 
       help us flow with life, living, and working. MinMaxFlow is a set of interfaces that follow the basic principles of:</p>
@@ -61,12 +108,12 @@
       </ol>
     </section>
 
-    <section class="section">
+    <section id="together" class="section">
       <h2>What we can do together</h2>
       <p>Want to flow with life, to be able to channel your greatness and find your peace. Then you are in the right place at the right time.</p>
     </section>
 
-    <section class="section">
+    <section id="how" class="section">
       <h2>How we can do it</h2>
       <div class="links">
         <a href="tel:+447917734396">Call me/text me</a>
@@ -78,7 +125,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="learn-more" class="section">
       <h2>Learn more about me</h2>
       <div class="links">
         <a href="https://world.hey.com/cfors">Newsletter</a>
@@ -91,7 +138,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="discussion" class="section">
       <h2>Open a discussion</h2>
       <div class="links">
         <a href="mailto:cfors@hey.com">Want to do a podcast?</a>
@@ -102,7 +149,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="documentation" class="section">
       <h2>Public Documentation</h2>
       <div class="links">
         <a href="/metrics">Metrics</a>
@@ -111,7 +158,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section id="feedback" class="section">
       <h2>Feedback</h2>
       <div class="links">
         <a href="https://testimonial.to/connor-forsyth">Give me feedback</a>
@@ -120,8 +167,18 @@
     </section>
   </main>
 
-  <footer>
-    <p>&copy; <%= Time.current.year %> Connor Forsyth. All rights reserved.</p>
-  </footer>
+    </main>
+
+    <footer>
+      <p>&copy; <%= Time.current.year %> Connor Forsyth. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('main-nav');
+      nav.classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
