@@ -49,32 +49,45 @@
       padding: 0;
     }
     header {
+      margin-bottom: 20px;
+    }
+    .header-content {
       display: flex;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
     }
     h1 {
       margin: 0;
     }
     nav {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
       background-color: #121212;
       padding: 10px;
-      border-radius: 0 0 5px 5px;
-    }
-    nav.active {
-      display: block;
+      border-radius: 5px;
     }
     nav ul {
       list-style-type: none;
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
     nav ul li {
-      margin-bottom: 10px;
+      margin: 5px 10px;
+    }
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+      }
+      nav.active {
+        display: block;
+      }
+      nav ul {
+        flex-direction: column;
+      }
+      nav ul li {
+        margin-bottom: 10px;
+      }
     }
     #donate-button {
       background-color: #64b5f6;
@@ -93,8 +106,10 @@
 <body>
   <div class="container">
     <header>
-      <button class="menu-btn" onclick="toggleMenu()">☰</button>
-      <h1>Connor Forsyth @ MinMaxFlow</h1>
+      <div class="header-content">
+        <button class="menu-btn" onclick="toggleMenu()">☰</button>
+        <h1>Connor Forsyth @ MinMaxFlow</h1>
+      </div>
       <nav id="main-nav">
         <ul>
           <li><a href="#who-am-i">Who Am I</a></li>
