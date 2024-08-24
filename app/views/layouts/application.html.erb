@@ -252,12 +252,10 @@
   <script>
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
-      if (window.innerWidth <= 768) {
-        if (nav.style.display === 'block') {
-          nav.style.display = 'none';
-        } else {
-          nav.style.display = 'block';
-        }
+      if (nav.style.display === 'block') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'block';
       }
     }
 
@@ -267,6 +265,14 @@
       if (window.innerWidth > 768) {
         nav.style.display = 'block';
       } else {
+        nav.style.display = 'none';
+      }
+    });
+
+    // Initial setup
+    window.addEventListener('load', function() {
+      const nav = document.getElementById('main-nav');
+      if (window.innerWidth <= 768) {
         nav.style.display = 'none';
       }
     });
