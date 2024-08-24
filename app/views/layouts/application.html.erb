@@ -7,15 +7,23 @@
   <title>Connor Forsyth</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Connor Forsyth</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
   <style>
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      line-height: 1.8;
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 1.6;
       color: #e0e0e0;
       margin: 0;
       padding: 0;
-      background-color: #121212;
-      font-size: 18px;
+      background-color: #000000;
+      font-size: 16px;
     }
     .container {
       max-width: 900px;
@@ -28,11 +36,11 @@
       font-weight: 600;
     }
     h1 {
-      font-size: 2.2em;
+      font-size: 2em;
       margin: 0;
     }
     h2 {
-      font-size: 1.8em;
+      font-size: 1.5em;
       margin-bottom: 0.5em;
     }
     a {
@@ -60,7 +68,7 @@
     }
     .who-am-i-content {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 40px;
     }
     .who-am-i-text {
@@ -74,6 +82,7 @@
       overflow: hidden;
       border: 3px solid #64b5f6;
       box-shadow: 0 0 20px rgba(100, 181, 246, 0.3);
+      margin-top: 60px;
     }
     .headshot img {
       width: 100%;
@@ -88,6 +97,7 @@
       .headshot {
         order: -1;
         margin-bottom: 20px;
+        margin-top: 0;
       }
     }
     .menu-btn {
@@ -103,7 +113,7 @@
       margin-bottom: 30px;
       position: sticky;
       top: 0;
-      background-color: #121212;
+      background-color: #000000;
       z-index: 1000;
       padding: 15px 0;
     }
@@ -113,6 +123,7 @@
       justify-content: space-between;
     }
     nav {
+      display: none;
       background-color: #1e1e1e;
       padding: 10px;
       border-radius: 5px;
@@ -137,9 +148,6 @@
       background-color: rgba(100, 181, 246, 0.2);
     }
     @media (max-width: 768px) {
-      nav {
-        display: none;
-      }
       nav ul {
         flex-direction: column;
       }
@@ -149,7 +157,7 @@
     }
     #donate-button {
       background-color: #64b5f6;
-      color: #121212;
+      color: #000000;
       border: none;
       padding: 10px 20px;
       cursor: pointer;
@@ -159,6 +167,31 @@
     }
     #donate-button:hover {
       background-color: #90caf9;
+    }
+    .goals-section {
+      background-color: #111111;
+      padding: 20px;
+      border-radius: 5px;
+    }
+    .goal {
+      margin-bottom: 20px;
+    }
+    .goal-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .goal-list {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .goal-list li {
+      margin-bottom: 5px;
+    }
+    .completion {
+      font-size: 0.9em;
+      color: #64b5f6;
     }
   </style>
 </head>
@@ -196,7 +229,13 @@
             <img src="/images/headshot.jpg" alt="Connor Forsyth Headshot" />
           </div>
         </div>
+      <div class="goal-title">
+          <h3>Goal: Help 3+ people lessen their suffering and reach their potential, per week, for 1 year.</h3>
+          <span class="completion">100% complete (so far)</span>
+      </div>
       </section>
+
+
 
       <section id="minmaxflow" class="section">
         <h2>What is MinMaxFlow</h2>
@@ -226,9 +265,9 @@
       </section>
 
       <section id="learn-more" class="section">
-        <h2>Learn more about me</h2>
+        <h2>Learn from other socialmedia content</h2>
         <div class="links">
-          <a href="https://world.hey.com/cfors">Newsletter</a>
+          <a href="https://world.hey.com/cfors">Newsletter/Blog</a>
           <a href="#">Spotify (coming soon)</a>
           <a href="https://m.youtube.com/channel/UCH_71x4BL7ooW0Mc-xKfWFQ">YouTube</a>
           <a href="https://x.com/connorsforsyth">X (Twitter)</a>
@@ -239,7 +278,7 @@
       </section>
 
       <section id="discussion" class="section">
-        <h2>Open a discussion</h2>
+        <h2>Open a discussion with me</h2>
         <div class="links">
           <a href="mailto:cfors@hey.com">Want to do a podcast?</a>
           <a href="https://calendly.com/connorsforsyth/1-1">Want help finding peace?</a>
@@ -285,24 +324,10 @@
       nav.style.display = nav.style.display === 'none' || nav.style.display === '' ? 'block' : 'none';
     }
 
-    function updateMenuVisibility() {
-      const nav = document.getElementById('main-nav');
-      if (window.innerWidth <= 768) {
-        nav.style.display = 'none';
-      } else {
-        nav.style.display = 'block';
-      }
-    }
-
-    window.addEventListener('resize', updateMenuVisibility);
-    window.addEventListener('load', updateMenuVisibility);
-
-    // Ensure the menu is collapsed on page load
+    // Ensure the menu is collapsed on page load for all devices
     document.addEventListener('DOMContentLoaded', function() {
       const nav = document.getElementById('main-nav');
-      if (window.innerWidth <= 768) {
-        nav.style.display = 'none';
-      }
+      nav.style.display = 'none';
     });
 
     function copyBitcoinAddress(e) {
