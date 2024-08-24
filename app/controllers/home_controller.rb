@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @title = "MinMaxFlow"
+    @title = "Connor Forsyth"
     render 'index'
   end
 end
