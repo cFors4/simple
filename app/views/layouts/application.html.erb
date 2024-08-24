@@ -252,30 +252,27 @@
   <script>
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
-      if (nav.style.display === 'block') {
-        nav.style.display = 'none';
-      } else {
+      if (nav.style.display === 'none' || nav.style.display === '') {
         nav.style.display = 'block';
+      } else {
+        nav.style.display = 'none';
       }
     }
 
-    // Ensure the menu is properly displayed/hidden when resizing the window
-    window.addEventListener('resize', function() {
+    function updateMenuVisibility() {
       const nav = document.getElementById('main-nav');
       if (window.innerWidth > 768) {
         nav.style.display = 'block';
       } else {
         nav.style.display = 'none';
       }
-    });
+    }
+
+    // Ensure the menu is properly displayed/hidden when resizing the window
+    window.addEventListener('resize', updateMenuVisibility);
 
     // Initial setup
-    window.addEventListener('load', function() {
-      const nav = document.getElementById('main-nav');
-      if (window.innerWidth <= 768) {
-        nav.style.display = 'none';
-      }
-    });
+    window.addEventListener('load', updateMenuVisibility);
 
     function copyBitcoinAddress(e) {
       e.preventDefault();
