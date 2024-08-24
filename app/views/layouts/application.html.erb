@@ -1,37 +1,125 @@
+<!-- app/views/layouts/application.html.erb -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Personal Website</title>
-    <link rel="stylesheet" href="/assets/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connor Forsyth</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+    }
+    h1, h2 {
+      margin-top: 2em;
+    }
+    a {
+      color: #0366d6;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .section {
+      margin-bottom: 2em;
+    }
+    .links a {
+      display: block;
+      margin-bottom: 0.5em;
+    }
+  </style>
 </head>
 <body>
-    <main>
-        <h1>YOUR NAME</h1>
-        
-        <section>
-            <p>Brief introduction about yourself and your key roles/achievements.</p>
-        </section>
+  <header>
+    <h1>Connor Forsyth @ MinMaxFlow</h1>
 
-        <section>
-            <h2>Main Project or Achievement</h2>
-            <p>Description of your primary work or project.</p>
-        </section>
+  </header>
 
-        <section>
-            <h2>Other Notable Work</h2>
-            <ul>
-                <li>Project 1</li>
-                <li>Project 2</li>
-                <li>Project 3</li>
-            </ul>
-        </section>
+  <main>
+    <section class="section">
+      <h2>Who Am I</h2>
+      <p>Software Engineer, Systems Engineer, Yogi, and Coach</p>
+      <p>Creating enterprise software, startups, working on my self, and helping others do the same. My values align around living a life of perfecting one's own self to the greatest degree possible, to be thankful for one's gifts and then to pursue those gifts to see how you can best use them for mankind. Effectively Self-Actualisation.</p>
+    </section>
 
-        <section>
-            <h2>Contact</h2>
-            <p>Links to your social media or contact information</p>
-        </section>
-    </main>
+    <section class="section">
+      <h2>What is MinMaxFlow</h2>
+      <p>MinMaxFlow is about optimisation, learning the mins and maxs across relevant domains to 
+      help us flow with life, living, and working. MinMaxFlow is a set of interfacecs that follow the basic principles of: 
+      1) "You can't manage what you don't measure" - Peter Drucker
+      2) "Until you make the unconscious conscious, it will direct your life and you will call it fate" - Carl Yung
+      3) "Try not to become a man of success, but rather try to become a man of value." - Einstein
+      4) "All things are impermanent, transitory, and fleeting" - Buddha </p>
+    </section>
+
+    <section class="section">
+      <h2>What we can do together</h2>
+      <p>Want to flow with life, to be able to channel your greatness and find your peace. Then you are in the right place at the right time.</p>
+    </section>
+
+    <section class="section">
+      <h2>How we can do it</h2>
+      <div class="links">
+        <a href="tel:+447917734396">Call me/text me</a>
+        <a href="mailto:cfors@hey.com">Email me</a>
+        <a href="https://calendly.com/connorsforsyth/1-1">Schedule some time with me</a>
+        <a href="#">Donate (Bitcoin)</a>
+        <a href="#">Donate (Card)</a>
+        <a href="https://www.dhamma.org/en/schedules/schdipaHow">10 day Vipassana Course</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Learn more about me</h2>
+      <div class="links">
+        <a href="https://world.hey.com/cfors">Newsletter</a>
+        <a href="#">Spotify (coming soon)</a>
+        <a href="https://m.youtube.com/channel/UCH_71x4BL7ooW0Mc-xKfWFQ">YouTube</a>
+        <a href="https://x.com/connorsforsyth">X (Twitter)</a>
+        <a href="https://www.linkedin.com/in/connorsforsyth/">LinkedIn</a>
+        <a href="https://www.instagram.com/cfors_">Instagram</a>
+        <a href="https://www.instagram.com/cfors_fit">Workout Instagram</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Open a discussion</h2>
+      <div class="links">
+        <a href="mailto:cfors@hey.com">Want to do a podcast?</a>
+        <a href="https://calendly.com/connorsforsyth/1-1">Want help finding peace?</a>
+        <a href="https://calendly.com/connorsforsyth/1-1">Want help with software engineering?</a>
+        <a href="https://calendly.com/connorsforsyth/1-1">Want to work on a startup together?</a>
+        <%# <a href="https://bassedos.com">Want to join a community of like minded individuals?</a> %>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Public Documentation</h2>
+      <div class="links">
+        <a href="/metrics">Metrics</a>
+        <a href="/models">Models</a>
+        <a href="/stacks">Stacks</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Feedback</h2>
+      <div class="links">
+        <a href="https://testimonial.to/connor-forsyth">Give me feedback</a>
+        <a href="https://testimonial.to/connor-forsyth/all">See feedback I've received</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; <%= Time.current.year %> Connor Forsyth. All rights reserved.</p>
+  </footer>
 </body>
 </html>
