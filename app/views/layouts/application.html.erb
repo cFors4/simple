@@ -79,9 +79,6 @@
       nav {
         display: none;
       }
-      nav.active {
-        display: block;
-      }
       nav ul {
         flex-direction: column;
       }
@@ -217,7 +214,11 @@
   <script>
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
-      nav.classList.toggle('active');
+      if (nav.style.display === 'block') {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'block';
+      }
     }
 
     function copyBitcoinAddress(e) {
