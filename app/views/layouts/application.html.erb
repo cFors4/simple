@@ -287,11 +287,23 @@
 
     function updateMenuVisibility() {
       const nav = document.getElementById('main-nav');
-      nav.style.display = window.innerWidth > 768 ? 'block' : 'none';
+      if (window.innerWidth <= 768) {
+        nav.style.display = 'none';
+      } else {
+        nav.style.display = 'block';
+      }
     }
 
     window.addEventListener('resize', updateMenuVisibility);
     window.addEventListener('load', updateMenuVisibility);
+
+    // Ensure the menu is collapsed on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const nav = document.getElementById('main-nav');
+      if (window.innerWidth <= 768) {
+        nav.style.display = 'none';
+      }
+    });
 
     function copyBitcoinAddress(e) {
       e.preventDefault();
