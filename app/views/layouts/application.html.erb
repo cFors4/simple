@@ -39,6 +39,36 @@
       display: block;
       margin-bottom: 0.5em;
     }
+    .who-am-i-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+    .who-am-i-text {
+      flex: 1;
+    }
+    .headshot {
+      flex-shrink: 0;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 50%;
+    }
+    .headshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    @media (max-width: 768px) {
+      .who-am-i-content {
+        flex-direction: column;
+        align-items: center;
+      }
+      .headshot {
+        order: -1;
+        margin-bottom: 20px;
+      }
+    }
     .menu-btn {
       background: none;
       border: none;
@@ -124,9 +154,16 @@
 
     <main>
       <section id="who-am-i" class="section">
-        <h2>Who Am I</h2>
-        <p>Software Engineer, Systems Engineer, Yogi, and Coach</p>
-        <p>Creating enterprise software, startups, working on my self, and helping others do the same. My values align around living a life of perfecting one's own self to the greatest degree possible, to be thankful for one's gifts and then to pursue those gifts to see how you can best use them for mankind. Effectively Self-Actualisation.</p>
+        <div class="who-am-i-content">
+          <div class="who-am-i-text">
+            <h2>Who Am I</h2>
+            <p>Software Engineer, Systems Engineer, Yogi, and Coach</p>
+            <p>Creating enterprise software, startups, working on my self, and helping others do the same. My values align around living a life of perfecting one's own self to the greatest degree possible, to be thankful for one's gifts and then to pursue those gifts to see how you can best use them for mankind. Effectively Self-Actualisation.</p>
+          </div>
+          <div class="headshot">
+            <img src="/path/to/your/headshot.jpg" alt="Connor Forsyth Headshot" />
+          </div>
+        </div>
       </section>
 
       <section id="minmaxflow" class="section">
