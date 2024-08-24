@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= content_for(:title) || "Simple Website" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Website</title>
+    <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+    <main>
+        <h1>YOUR NAME</h1>
+        
+        <section>
+            <p>Brief introduction about yourself and your key roles/achievements.</p>
+        </section>
 
-    <%= yield :head %>
+        <section>
+            <h2>Main Project or Achievement</h2>
+            <p>Description of your primary work or project.</p>
+        </section>
 
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+        <section>
+            <h2>Other Notable Work</h2>
+            <ul>
+                <li>Project 1</li>
+                <li>Project 2</li>
+                <li>Project 3</li>
+            </ul>
+        </section>
 
-  <body>
-    <%= yield %>
-  </body>
+        <section>
+            <h2>Contact</h2>
+            <p>Links to your social media or contact information</p>
+        </section>
+    </main>
+</body>
 </html>
