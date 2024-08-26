@@ -49,14 +49,17 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 1000;
     justify-content: center;
-    align-items: flex-start;
-    padding-top: 100px;
+    align-items: center;
+}
+
+.search-content {
+    width: 80%;
+    max-width: 600px;
 }
 
 .search-input-container {
     position: relative;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
 }
 
 #search-input {
@@ -87,8 +90,6 @@ a:hover {
 }
 
 .search-results {
-    width: 80%;
-    max-width: 600px;
     max-height: 60vh;
     overflow-y: auto;
     margin-top: 20px;

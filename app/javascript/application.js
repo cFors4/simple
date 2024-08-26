@@ -10,12 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const searchResults = document.getElementById('search-results');
 
   searchButton.addEventListener('click', openSearch);
-  closeSearch.addEventListener('click', closeSearch);
+  closeSearch.addEventListener('click', closeSearchOverlay);
   searchInput.addEventListener('input', handleSearch);
   searchInput.addEventListener('keydown', handleInputNavigation);
   searchResults.addEventListener('keydown', handleResultNavigation);
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeSearch();
+    if (e.key === 'Escape') closeSearchOverlay();
   });
 });
 
@@ -23,14 +23,18 @@ function openSearch() {
   const searchOverlay = document.getElementById('search-overlay');
   const searchInput = document.getElementById('search-input');
   searchOverlay.style.display = 'flex';
-  searchInput.focus();
+  setTimeout(() => {
+    searchInput.focus();
+  }, 100);
 }
 
-function closeSearch() {
+function closeSearchOverlay() {
   const searchOverlay = document.getElementById('search-overlay');
   const searchResults = document.getElementById('search-results');
+  const searchInput = document.getElementById('search-input');
   searchOverlay.style.display = 'none';
   searchResults.innerHTML = '';
+  searchInput.value = '';
 }
 
 async function handleSearch() {
@@ -49,44 +53,6 @@ async function handleSearch() {
   } catch (error) {
     console.error('Error fetching search results:', error);
   }
-}
-
-let debounceTimer;
-
-function debounceSearch() {
-  clearTimeout(debounceTimer);
-  debounceTimer = setTimeout(handleSearch, 300); // Adjust the delay as needed
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const searchButton = document.getElementById('search-button');
-  const searchOverlay = document.getElementById('search-overlay');
-  const searchInput = document.getElementById('search-input');
-  const closeSearch = document.getElementById('close-search');
-  const searchResults = document.getElementById('search-results');
-
-  searchButton.addEventListener('click', openSearch);
-  closeSearch.addEventListener('click', closeSearchOverlay);
-  searchInput.addEventListener('input', debounceSearch);
-  searchInput.addEventListener('keydown', handleInputNavigation);
-  searchResults.addEventListener('keydown', handleResultNavigation);
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeSearchOverlay();
-  });
-});
-
-function openSearch() {
-  const searchOverlay = document.getElementById('search-overlay');
-  const searchInput = document.getElementById('search-input');
-  searchOverlay.style.display = 'flex';
-  searchInput.focus();
-}
-
-function closeSearchOverlay() {
-  const searchOverlay = document.getElementById('search-overlay');
-  const searchResults = document.getElementById('search-results');
-  searchOverlay.style.display = 'none';
-  searchResults.innerHTML = '';
 }
 
 function displayResults(results) {
@@ -153,5 +119,5 @@ function handleResultNavigation(event) {
 
 function navigateToResult(url) {
   window.location.href = url;
-  closeSearch();
+  closeSearchOverlay();
 }
