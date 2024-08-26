@@ -278,8 +278,11 @@
       <div class="header-content">
         <h1><a href="/" style="color: inherit; text-decoration: none;">Connor Forsyth @ MinMaxFlow</a></h1>
         <div class="header-buttons">
-          <input type="text" id="search-input" placeholder="Search...">
-          <div id="search-results" class="search-results"></div>
+          <div class="search-container">
+            <label for="search-input" class="sr-only">Search</label>
+            <input type="text" id="search-input" placeholder="Search..." aria-autocomplete="list" aria-controls="search-results">
+            <div id="search-results" class="search-results" role="listbox"></div>
+          </div>
           <a href="<%= root_path(anchor: 'how') %>" class="cta-button">I'm ready to grow</a>
           <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>

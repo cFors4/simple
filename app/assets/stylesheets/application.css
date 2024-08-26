@@ -21,6 +21,11 @@ a:hover {
     text-decoration: underline;
 }
 
+.search-container {
+    position: relative;
+    display: inline-block;
+}
+
 #search-input {
     padding: 5px 10px;
     margin-right: 10px;
@@ -28,6 +33,7 @@ a:hover {
     border-radius: 5px;
     background-color: #1e1e1e;
     color: #e0e0e0;
+    width: 200px;
 }
 
 .search-results {
@@ -42,6 +48,7 @@ a:hover {
     border: 1px solid #64b5f6;
     border-radius: 0 0 5px 5px;
     z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .search-result {
@@ -50,15 +57,31 @@ a:hover {
     cursor: pointer;
 }
 
-.search-result:hover {
+.search-result:hover,
+.search-result:focus {
     background-color: #2b2b2b;
+    outline: none;
 }
 
 .search-result-page {
     font-weight: bold;
     color: #64b5f6;
+    margin-bottom: 5px;
 }
 
 .search-result-content {
     color: #e0e0e0;
+    font-size: 0.9em;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
