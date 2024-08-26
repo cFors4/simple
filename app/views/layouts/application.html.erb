@@ -464,7 +464,7 @@
 
       function updateMinimap() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
-        const contentWidth = document.querySelector('.container').offsetWidth; // Use the width of the content container
+        const contentWidth = document.querySelector('.container').offsetWidth;
         const scaleX = minimap.offsetWidth / contentWidth;
         const scaleY = minimap.offsetHeight / contentHeight;
         const scale = Math.min(scaleX, scaleY);
@@ -472,7 +472,14 @@
         minimapContent.style.transform = `scale(${scale})`;
         minimapContent.style.width = `${contentWidth}px`;
         minimapContent.style.height = `${contentHeight}px`;
-        minimapContent.innerHTML = content.innerHTML;
+
+        // Clone the content and remove the minimap from the clone
+        const contentClone = content.cloneNode(true);
+        const minimapInClone = contentClone.querySelector('#minimap');
+        if (minimapInClone) {
+          minimapInClone.remove();
+        }
+        minimapContent.innerHTML = contentClone.innerHTML;
 
         // Center the content horizontally in the minimap
         const scaledContentWidth = contentWidth * scale;
