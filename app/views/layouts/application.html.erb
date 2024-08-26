@@ -406,27 +406,36 @@
       const content = document.body;
 
       function updateMinimap() {
+        const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
         const scaleX = minimap.offsetWidth / content.scrollWidth;
-        const scaleY = minimap.offsetHeight / content.scrollHeight;
+        const scaleY = minimap.offsetHeight / contentHeight;
         const scale = Math.min(scaleX, scaleY);
+
         minimapContent.style.transform = `scale(${scale})`;
         minimapContent.style.width = `${content.scrollWidth}px`;
-        minimapContent.style.height = `${content.scrollHeight}px`;
+        minimapContent.style.height = `${contentHeight}px`;
         minimapContent.innerHTML = content.innerHTML;
 
-        const sliderHeight = (window.innerHeight / content.scrollHeight) * minimap.offsetHeight;
+        const sliderHeight = (window.innerHeight / contentHeight) * minimap.offsetHeight;
         minimapSlider.style.height = `${sliderHeight}px`;
+
+        // Adjust minimap height to match content aspect ratio
+        const contentAspectRatio = content.scrollWidth / contentHeight;
+        const minimapWidth = minimap.offsetWidth;
+        minimap.style.height = `${minimapWidth / contentAspectRatio}px`;
       }
 
       function updateMinimapScroll() {
-        const scrollPercentage = window.pageYOffset / (content.scrollHeight - window.innerHeight);
+        const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
+        const scrollPercentage = window.pageYOffset / (contentHeight - window.innerHeight);
         const sliderTop = scrollPercentage * (minimap.offsetHeight - minimapSlider.offsetHeight);
         minimapSlider.style.top = `${sliderTop}px`;
       }
 
       function scrollToPosition(y) {
+        const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
         const scrollPercentage = y / minimap.offsetHeight;
-        const scrollTarget = scrollPercentage * (content.scrollHeight - window.innerHeight);
+        const scrollTarget = scrollPercentage * (contentHeight - window.innerHeight);
         window.scrollTo(0, scrollTarget);
       }
 
