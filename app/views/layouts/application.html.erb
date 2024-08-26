@@ -328,7 +328,7 @@
       if (targetElement) {
         const headerHeight = document.querySelector('header').offsetHeight;
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = targetPosition - headerHeight;
+        const offsetPosition = targetPosition - headerHeight - 20; // Added extra 20px for spacing
 
         window.scrollTo({
           top: offsetPosition,
@@ -347,9 +347,11 @@
 
     // Add event listener for the "I'm ready to grow" button
     document.querySelector('.cta-button').addEventListener('click', function(e) {
+      e.preventDefault();
       if (window.location.pathname === '/') {
-        e.preventDefault();
         smoothScroll('how');
+      } else {
+        window.location.href = this.getAttribute('href');
       }
     });
 
