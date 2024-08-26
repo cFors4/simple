@@ -217,15 +217,29 @@
       justify-content: space-between;
       flex-wrap: wrap;
     }
+    .header-left {
+      display: flex;
+      align-items: center;
+    }
+    .header-left h1 {
+      margin-left: 15px;
+    }
     @media (max-width: 768px) {
-      .header-content h1 {
-        font-size: 1.5em;
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-left {
+        width: 100%;
         margin-bottom: 10px;
+      }
+      .header-left h1 {
+        font-size: 1.5em;
       }
       .header-buttons {
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: flex-end;
       }
     }
     nav {
@@ -305,10 +319,12 @@
   <div class="container">
     <header>
       <div class="header-content">
-        <h1><a href="/" style="color: inherit; text-decoration: none;">Connor Forsyth @ MinMaxFlow</a></h1>
+        <div class="header-left">
+          <button class="menu-btn" onclick="toggleMenu()">☰</button>
+          <h1><a href="/" style="color: inherit; text-decoration: none;">Connor Forsyth @ MinMaxFlow</a></h1>
+        </div>
         <div class="header-buttons">
           <a href="<%= root_path(anchor: 'how') %>" class="cta-button">I'm ready to grow</a>
-          <button class="menu-btn" onclick="toggleMenu()">☰</button>
         </div>
       </div>
       <nav id="main-nav">
