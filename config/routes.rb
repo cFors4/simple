@@ -12,8 +12,6 @@ Rails.application.routes.draw do
   get 'become', to: 'pages#become'
   get 'be', to: 'pages#be'
 
-  # New search route
-  get 'search', to: 'application#search'
 
   # Existing health check route
   get "up" => "rails/health#show", as: :rails_health_check
