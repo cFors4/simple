@@ -31,13 +31,19 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 150px;
-      height: 300px;
+      width: 15vw; /* 15% of viewport width */
+      max-width: 300px; /* Increased maximum width */
+      min-width: 100px; /* Minimum width */
       background-color: rgba(30, 30, 30, 0.8);
       border: 1px solid #64b5f6;
       border-radius: 5px;
       overflow: hidden;
       z-index: 1000;
+    }
+    @media (min-width: 2000px) {
+      #minimap {
+        width: 300px; /* Fixed width for very large screens */
+      }
     }
     #minimap-content {
       transform-origin: top left;
@@ -45,15 +51,6 @@
       position: absolute;
       top: 0;
       left: 0;
-    }
-    #minimap-slider {
-      position: absolute;
-      right: 0;
-      top: 0;
-      width: 8px;
-      background-color: rgba(100, 181, 246, 0.5);
-      border-radius: 4px;
-      cursor: pointer;
     }
     /* Hide minimap on mobile */
     @media (max-width: 768px) {
@@ -409,7 +406,6 @@
 
   <div id="minimap">
     <div id="minimap-content"></div>
-    <div id="minimap-slider"></div>
   </div>
 
   <script>
@@ -417,7 +413,6 @@
     document.addEventListener('DOMContentLoaded', function() {
       const minimap = document.getElementById('minimap');
       const minimapContent = document.getElementById('minimap-content');
-      const minimapSlider = document.getElementById('minimap-slider');
       const content = document.body;
 
       // Create visible area element
@@ -427,22 +422,26 @@
 
       function updateMinimap() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
-        const scaleX = minimap.offsetWidth / content.scrollWidth;
-        const scaleY = minimap.offsetHeight / contentHeight;
+        const contentWidth = content.scrollWidth;
+        const contentAspectRatio = contentWidth / contentHeight;
+
+        const minimapWidth = minimap.offsetWidth;
+        const minimapHeight = minimapWidth / contentAspectRatio;
+        minimap.style.height = `${minimapHeight}px`;
+
+        const scaleX = minimapWidth / contentWidth;
+        const scaleY = minimapHeight / contentHeight;
         const scale = Math.min(scaleX, scaleY);
 
         minimapContent.style.transform = `scale(${scale})`;
-        minimapContent.style.width = `${content.scrollWidth}px`;
+        minimapContent.style.width = `${contentWidth}px`;
         minimapContent.style.height = `${contentHeight}px`;
         minimapContent.innerHTML = content.innerHTML;
 
-        const sliderHeight = (window.innerHeight / contentHeight) * minimap.offsetHeight;
-        minimapSlider.style.height = `${sliderHeight}px`;
-
-        // Adjust minimap height to match content aspect ratio
-        const contentAspectRatio = content.scrollWidth / contentHeight;
-        const minimapWidth = minimap.offsetWidth;
-        minimap.style.height = `${minimapWidth / contentAspectRatio}px`;
+        // Adjust font size based on scale
+        const baseFontSize = 16; // Base font size in pixels
+        const scaledFontSize = Math.max(baseFontSize * scale, 1); // Ensure minimum font size of 1px
+        minimapContent.style.fontSize = `${scaledFontSize}px`;
 
         updateVisibleArea();
       }
@@ -490,7 +489,10 @@
       let resizeTimer;
       window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(updateMinimap, 250);
+        resizeTimer = setTimeout(function() {
+          updateMinimap();
+          updateVisibleArea();
+        }, 250);
       });
     });
   </script>
