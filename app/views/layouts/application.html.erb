@@ -42,7 +42,9 @@
     #minimap-content {
       transform-origin: top left;
       transition: transform 0.1s ease-out;
-      width: 900px; /* Match the max-width of your main content */
+      position: absolute;
+      top: 0;
+      left: 0;
     }
     #minimap-slider {
       position: absolute;
@@ -382,11 +384,15 @@
       const minimap = document.getElementById('minimap');
       const minimapContent = document.getElementById('minimap-content');
       const minimapSlider = document.getElementById('minimap-slider');
-      const content = document.querySelector('main');
+      const content = document.body;
 
       function updateMinimap() {
-        const scale = minimap.offsetWidth / content.offsetWidth;
+        const scaleX = minimap.offsetWidth / content.scrollWidth;
+        const scaleY = minimap.offsetHeight / content.scrollHeight;
+        const scale = Math.min(scaleX, scaleY);
         minimapContent.style.transform = `scale(${scale})`;
+        minimapContent.style.width = `${content.scrollWidth}px`;
+        minimapContent.style.height = `${content.scrollHeight}px`;
         minimapContent.innerHTML = content.innerHTML;
 
         const sliderHeight = (window.innerHeight / content.scrollHeight) * minimap.offsetHeight;
@@ -394,7 +400,7 @@
       }
 
       function updateMinimapScroll() {
-        const scrollPercentage = window.scrollY / (content.scrollHeight - window.innerHeight);
+        const scrollPercentage = window.pageYOffset / (content.scrollHeight - window.innerHeight);
         const sliderTop = scrollPercentage * (minimap.offsetHeight - minimapSlider.offsetHeight);
         minimapSlider.style.top = `${sliderTop}px`;
       }
