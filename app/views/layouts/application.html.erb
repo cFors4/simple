@@ -61,9 +61,14 @@
         display: none;
       }
     }
-    /* Highlight current section in minimap */
-    #minimap-content .active-section {
+    /* Highlight visible area in minimap */
+    #minimap-visible-area {
+      position: absolute;
       background-color: rgba(100, 181, 246, 0.3);
+      pointer-events: none;
+    }
+    #minimap:hover #minimap-visible-area {
+      background-color: rgba(100, 181, 246, 0.5);
     }
     .container {
       max-width: 900px;
@@ -415,6 +420,11 @@
       const minimapSlider = document.getElementById('minimap-slider');
       const content = document.body;
 
+      // Create visible area element
+      const visibleArea = document.createElement('div');
+      visibleArea.id = 'minimap-visible-area';
+      minimap.appendChild(visibleArea);
+
       function updateMinimap() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
         const scaleX = minimap.offsetWidth / content.scrollWidth;
@@ -434,34 +444,17 @@
         const minimapWidth = minimap.offsetWidth;
         minimap.style.height = `${minimapWidth / contentAspectRatio}px`;
 
-        // Add event listeners to highlight current section
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-          const minimapSection = minimapContent.querySelector(`#${section.id}`);
-          if (minimapSection) {
-            minimapSection.classList.remove('active-section');
-          }
-        });
+        updateVisibleArea();
       }
 
-      function updateMinimapScroll() {
+      function updateVisibleArea() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
         const scrollPercentage = window.pageYOffset / (contentHeight - window.innerHeight);
-        const sliderTop = scrollPercentage * (minimap.offsetHeight - minimapSlider.offsetHeight);
-        minimapSlider.style.top = `${sliderTop}px`;
-
-        // Highlight current section
-        const sections = document.querySelectorAll('section');
-        sections.forEach(section => {
-          const rect = section.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
-            const minimapSection = minimapContent.querySelector(`#${section.id}`);
-            if (minimapSection) {
-              minimapContent.querySelectorAll('.active-section').forEach(el => el.classList.remove('active-section'));
-              minimapSection.classList.add('active-section');
-            }
-          }
-        });
+        const visibleAreaTop = scrollPercentage * (minimap.offsetHeight - visibleArea.offsetHeight);
+        
+        visibleArea.style.top = `${visibleAreaTop}px`;
+        visibleArea.style.height = `${(window.innerHeight / contentHeight) * minimap.offsetHeight}px`;
+        visibleArea.style.width = `${minimap.offsetWidth}px`;
       }
 
       function scrollToPosition(y) {
@@ -473,7 +466,7 @@
 
       updateMinimap();
       window.addEventListener('resize', updateMinimap);
-      window.addEventListener('scroll', updateMinimapScroll);
+      window.addEventListener('scroll', updateVisibleArea);
 
       // Click on minimap to scroll
       minimap.addEventListener('mousedown', function(e) {
