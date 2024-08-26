@@ -348,10 +348,14 @@
     // Add event listener for the "I'm ready to grow" button
     document.querySelector('.cta-button').addEventListener('click', function(e) {
       e.preventDefault();
-      if (window.location.pathname === '/') {
-        smoothScroll('how');
+      const targetHref = this.getAttribute('href');
+      const targetPath = targetHref.split('#')[0];
+      const targetAnchor = targetHref.split('#')[1];
+
+      if (window.location.pathname === targetPath) {
+        smoothScroll(targetAnchor);
       } else {
-        window.location.href = this.getAttribute('href');
+        window.location.href = targetHref;
       }
     });
 
