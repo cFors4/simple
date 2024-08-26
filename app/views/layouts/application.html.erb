@@ -42,6 +42,7 @@
     #minimap-content {
       transform-origin: top left;
       transition: transform 0.1s ease-out;
+      width: 900px; /* Match the max-width of your main content */
     }
     #minimap-slider {
       position: absolute;
@@ -50,6 +51,7 @@
       width: 8px;
       background-color: rgba(100, 181, 246, 0.5);
       border-radius: 4px;
+      cursor: pointer;
     }
     .container {
       max-width: 900px;
@@ -383,7 +385,7 @@
       const content = document.querySelector('main');
 
       function updateMinimap() {
-        const scale = minimap.offsetHeight / content.scrollHeight;
+        const scale = minimap.offsetWidth / content.offsetWidth;
         minimapContent.style.transform = `scale(${scale})`;
         minimapContent.innerHTML = content.innerHTML;
 
@@ -397,16 +399,39 @@
         minimapSlider.style.top = `${sliderTop}px`;
       }
 
+      function scrollToPosition(y) {
+        const scrollPercentage = y / minimap.offsetHeight;
+        const scrollTarget = scrollPercentage * (content.scrollHeight - window.innerHeight);
+        window.scrollTo(0, scrollTarget);
+      }
+
       updateMinimap();
       window.addEventListener('resize', updateMinimap);
       window.addEventListener('scroll', updateMinimapScroll);
 
       // Click on minimap to scroll
-      minimap.addEventListener('click', function(e) {
-        const clickPositionY = e.clientY - minimap.getBoundingClientRect().top;
-        const scrollPercentage = clickPositionY / minimap.offsetHeight;
-        const scrollTarget = scrollPercentage * (content.scrollHeight - window.innerHeight);
-        window.scrollTo(0, scrollTarget);
+      minimap.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        scrollToPosition(e.clientY - minimap.getBoundingClientRect().top);
+
+        function mouseMoveHandler(e) {
+          scrollToPosition(e.clientY - minimap.getBoundingClientRect().top);
+        }
+
+        function mouseUpHandler() {
+          document.removeEventListener('mousemove', mouseMoveHandler);
+          document.removeEventListener('mouseup', mouseUpHandler);
+        }
+
+        document.addEventListener('mousemove', mouseMoveHandler);
+        document.addEventListener('mouseup', mouseUpHandler);
+      });
+
+      // Update minimap on window resize
+      let resizeTimer;
+      window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateMinimap, 250);
       });
     });
   </script>
