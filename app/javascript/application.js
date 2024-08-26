@@ -3,30 +3,42 @@ import "@hotwired/turbo-rails"
 import "controllers"
 
 document.addEventListener('DOMContentLoaded', () => {
+  const searchButton = document.getElementById('search-button');
+  const searchOverlay = document.getElementById('search-overlay');
   const searchInput = document.getElementById('search-input');
+  const closeSearch = document.getElementById('close-search');
   const searchResults = document.getElementById('search-results');
 
-  searchInput.addEventListener('input', debounce(handleSearch, 300));
+  searchButton.addEventListener('click', openSearch);
+  closeSearch.addEventListener('click', closeSearch);
+  searchInput.addEventListener('input', handleSearch);
   searchInput.addEventListener('keydown', handleInputNavigation);
   searchResults.addEventListener('keydown', handleResultNavigation);
-  document.addEventListener('click', handleClickOutside);
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeSearch();
+  });
 });
 
-function debounce(func, delay) {
-  let timeoutId;
-  return function (...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
-  };
+function openSearch() {
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchInput = document.getElementById('search-input');
+  searchOverlay.style.display = 'flex';
+  searchInput.focus();
+}
+
+function closeSearch() {
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchResults = document.getElementById('search-results');
+  searchOverlay.style.display = 'none';
+  searchResults.innerHTML = '';
 }
 
 async function handleSearch() {
   const query = document.getElementById('search-input').value;
   const searchResults = document.getElementById('search-results');
   
-  if (query.length < 3) {
+  if (query.length === 0) {
     searchResults.innerHTML = '';
-    searchResults.style.display = 'none';
     return;
   }
 
@@ -44,7 +56,7 @@ function displayResults(results) {
   searchResults.innerHTML = '';
 
   if (results.length === 0) {
-    searchResults.style.display = 'none';
+    searchResults.innerHTML = '<div class="search-result">No results found</div>';
     return;
   }
 
@@ -61,8 +73,6 @@ function displayResults(results) {
     resultElement.addEventListener('click', () => navigateToResult(result.url));
     searchResults.appendChild(resultElement);
   });
-
-  searchResults.style.display = 'block';
 }
 
 function handleInputNavigation(event) {
@@ -100,26 +110,10 @@ function handleResultNavigation(event) {
         navigateToResult(document.activeElement.dataset.url);
       }
       break;
-    case 'Escape':
-      event.preventDefault();
-      closeSearchResults();
-      document.getElementById('search-input').focus();
-      break;
   }
 }
 
 function navigateToResult(url) {
   window.location.href = url;
-}
-
-function handleClickOutside(event) {
-  const searchContainer = document.querySelector('.search-container');
-  if (!searchContainer.contains(event.target)) {
-    closeSearchResults();
-  }
-}
-
-function closeSearchResults() {
-  const searchResults = document.getElementById('search-results');
-  searchResults.style.display = 'none';
+  closeSearch();
 }
