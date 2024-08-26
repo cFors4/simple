@@ -462,6 +462,16 @@
       visibleArea.id = 'minimap-visible-area';
       minimap.appendChild(visibleArea);
 
+      let isMinimapInitialized = false;
+
+      function initMinimap() {
+        if (isMinimapInitialized) return;
+        
+        updateMinimap();
+        isMinimapInitialized = true;
+        minimap.style.opacity = '1';
+      }
+
       function updateMinimap() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
         const contentWidth = document.querySelector('.container').offsetWidth;
@@ -518,16 +528,6 @@
         visibleArea.style.left = `${horizontalOffset}px`;
       }
 
-      function updateVisibleArea() {
-        const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
-        const scrollPercentage = window.pageYOffset / (contentHeight - window.innerHeight);
-        const visibleAreaTop = scrollPercentage * (minimap.offsetHeight - visibleArea.offsetHeight);
-        
-        visibleArea.style.top = `${visibleAreaTop}px`;
-        visibleArea.style.height = `${(window.innerHeight / contentHeight) * minimap.offsetHeight}px`;
-        visibleArea.style.width = `${minimap.offsetWidth}px`;
-      }
-
       function scrollToPosition(y) {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
         const scrollPercentage = y / minimap.offsetHeight;
@@ -535,7 +535,14 @@
         window.scrollTo(0, scrollTarget);
       }
 
-      updateMinimap();
+      // Hide minimap initially
+      minimap.style.opacity = '0';
+      minimap.style.transition = 'opacity 0.3s ease-in-out';
+
+      // Initialize minimap after a short delay
+      setTimeout(initMinimap, 500);
+
+      window.addEventListener('load', initMinimap);
       window.addEventListener('resize', updateMinimap);
       window.addEventListener('scroll', updateVisibleArea);
 
@@ -563,6 +570,9 @@
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(updateMinimap, 250);
       });
+
+      // Periodically check and update minimap
+      setInterval(updateMinimap, 2000);
     });
   </script>
 </body>
