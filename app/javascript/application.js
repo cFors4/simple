@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   searchButton.addEventListener('click', openSearch);
   closeSearch.addEventListener('click', closeSearchOverlay);
-  searchInput.addEventListener('input', handleSearch);
+  searchInput.addEventListener('input', debounce(handleSearch, 300));
   searchInput.addEventListener('keydown', handleInputNavigation);
   searchResults.addEventListener('keydown', handleResultNavigation);
   document.addEventListener('keydown', (e) => {
@@ -35,6 +35,14 @@ function closeSearchOverlay() {
   searchOverlay.style.display = 'none';
   searchResults.innerHTML = '';
   searchInput.value = '';
+}
+
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
 }
 
 async function handleSearch() {

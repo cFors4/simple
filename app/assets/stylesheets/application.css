@@ -21,11 +21,6 @@ a:hover {
     text-decoration: underline;
 }
 
-.search-container {
-    position: relative;
-    display: inline-block;
-}
-
 #search-button {
     background: none;
     border: none;
@@ -49,7 +44,8 @@ a:hover {
     background-color: rgba(0, 0, 0, 0.95);
     z-index: 1000;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 50px;
 }
 
 .search-content {
@@ -60,6 +56,7 @@ a:hover {
 .search-input-container {
     position: relative;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 #search-input {
@@ -92,7 +89,6 @@ a:hover {
 .search-results {
     max-height: 60vh;
     overflow-y: auto;
-    margin-top: 20px;
     background-color: #1e1e1e;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -119,16 +115,4 @@ a:hover {
 .search-result-content {
     color: #e0e0e0;
     font-size: 0.9em;
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
 }
