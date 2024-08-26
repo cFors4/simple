@@ -360,10 +360,25 @@
       nav.style.display = nav.style.display === 'none' || nav.style.display === '' ? 'block' : 'none';
     }
 
+    function closeMenu() {
+      const nav = document.getElementById('main-nav');
+      nav.style.display = 'none';
+    }
+
     // Ensure the menu is collapsed on page load for all devices
     document.addEventListener('DOMContentLoaded', function() {
       const nav = document.getElementById('main-nav');
       nav.style.display = 'none';
+
+      // Add click event listeners to all links in the menu
+      const menuLinks = nav.querySelectorAll('a');
+      menuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          if (window.innerWidth <= 768) { // Only for mobile screens
+            closeMenu();
+          }
+        });
+      });
     });
 
     function copyBitcoinAddress(e) {
