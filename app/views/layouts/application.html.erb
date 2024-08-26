@@ -464,7 +464,7 @@
 
       function updateMinimap() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
-        const contentWidth = Math.max(content.scrollWidth, window.innerWidth);
+        const contentWidth = document.querySelector('.container').offsetWidth; // Use the width of the content container
         const scaleX = minimap.offsetWidth / contentWidth;
         const scaleY = minimap.offsetHeight / contentHeight;
         const scale = Math.min(scaleX, scaleY);
@@ -474,17 +474,41 @@
         minimapContent.style.height = `${contentHeight}px`;
         minimapContent.innerHTML = content.innerHTML;
 
+        // Center the content horizontally in the minimap
+        const scaledContentWidth = contentWidth * scale;
+        const horizontalOffset = (minimap.offsetWidth - scaledContentWidth) / 2;
+        minimapContent.style.left = `${horizontalOffset}px`;
+
         // Ensure minimap aspect ratio matches content
         const contentAspectRatio = contentWidth / contentHeight;
         const minimapWidth = minimap.offsetWidth;
         const calculatedHeight = minimapWidth / contentAspectRatio;
-      
+    
         // Apply min and max height constraints
         const minHeight = parseInt(window.getComputedStyle(minimap).minHeight);
         const maxHeight = parseInt(window.getComputedStyle(minimap).maxHeight);
         minimap.style.height = `${Math.max(minHeight, Math.min(calculatedHeight, maxHeight))}px`;
 
         updateVisibleArea();
+      }
+
+      function updateVisibleArea() {
+        const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
+        const contentWidth = document.querySelector('.container').offsetWidth;
+        const scrollPercentage = window.pageYOffset / (contentHeight - window.innerHeight);
+        const visibleAreaTop = scrollPercentage * (minimap.offsetHeight - visibleArea.offsetHeight);
+      
+        visibleArea.style.top = `${visibleAreaTop}px`;
+        visibleArea.style.height = `${(window.innerHeight / contentHeight) * minimap.offsetHeight}px`;
+      
+        // Adjust visible area width to match the scaled content width
+        const scaleX = minimap.offsetWidth / contentWidth;
+        const scaledContentWidth = contentWidth * scaleX;
+        visibleArea.style.width = `${scaledContentWidth}px`;
+      
+        // Center the visible area horizontally
+        const horizontalOffset = (minimap.offsetWidth - scaledContentWidth) / 2;
+        visibleArea.style.left = `${horizontalOffset}px`;
       }
 
       function updateVisibleArea() {
