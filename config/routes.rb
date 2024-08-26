@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   get 'stacks', to: 'stacks#index'
   get 'models', to: 'models#index'
 
+  get 'flow', to: 'index#flow'
+  get 'engineer', to: 'index#engineer'
+  get 'become', to: 'index#become'
+  get 'be', to: 'index#be'
+
   # Existing health check route
   get "up" => "rails/health#show", as: :rails_health_check
 
