@@ -293,23 +293,33 @@
       });
     }
 
+    function smoothScroll(targetId) {
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        const headerHeight = document.querySelector('header').offsetHeight;
+        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+        const offsetPosition = targetPosition - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href').substring(1);
-        const targetElement = document.getElementById(targetId);
-        
-        if (targetElement) {
-          const headerHeight = document.querySelector('header').offsetHeight;
-          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-          const offsetPosition = targetPosition - (window.innerHeight / 2) - (headerHeight / 2);
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
-        }
+        smoothScroll(targetId);
       });
+    });
+
+    // Add event listener for the "I'm ready to grow" button
+    document.querySelector('.cta-button').addEventListener('click', function(e) {
+      e.preventDefault();
+      smoothScroll('how');
     });
 
     function setActiveMenuItem() {
