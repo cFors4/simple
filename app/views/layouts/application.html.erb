@@ -539,10 +539,33 @@
       minimap.style.opacity = '0';
       minimap.style.transition = 'opacity 0.3s ease-in-out';
 
-      // Initialize minimap after a short delay
-      setTimeout(initMinimap, 500);
+      // Initialize minimap after a short delay and when all content is loaded
+      window.addEventListener('load', function() {
+        setTimeout(initMinimap, 500);
+      });
 
-      window.addEventListener('load', initMinimap);
+      // Reinitialize minimap when all images are loaded
+      window.addEventListener('load', function() {
+        const images = document.querySelectorAll('img');
+        let loadedImages = 0;
+
+        function imageLoaded() {
+          loadedImages++;
+          if (loadedImages === images.length) {
+            updateMinimap();
+          }
+        }
+
+        images.forEach(img => {
+          if (img.complete) {
+            imageLoaded();
+          } else {
+            img.addEventListener('load', imageLoaded);
+            img.addEventListener('error', imageLoaded);
+          }
+        });
+      });
+
       window.addEventListener('resize', updateMinimap);
       window.addEventListener('scroll', updateVisibleArea);
 
