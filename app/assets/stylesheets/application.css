@@ -116,3 +116,16 @@ a:hover {
     color: #e0e0e0;
     font-size: 0.9em;
 }
+
+#search-button {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#search-button svg {
+    width: 20px;
+    height: 20px;
+}

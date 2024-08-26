@@ -327,6 +327,8 @@
     </div>
   </div>
 
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+
   <script>
     function toggleMenu() {
       const nav = document.getElementById('main-nav');
