@@ -55,6 +55,16 @@
       border-radius: 4px;
       cursor: pointer;
     }
+    /* Hide minimap on mobile */
+    @media (max-width: 768px) {
+      #minimap {
+        display: none;
+      }
+    }
+    /* Highlight current section in minimap */
+    #minimap-content .active-section {
+      background-color: rgba(100, 181, 246, 0.3);
+    }
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -423,6 +433,15 @@
         const contentAspectRatio = content.scrollWidth / contentHeight;
         const minimapWidth = minimap.offsetWidth;
         minimap.style.height = `${minimapWidth / contentAspectRatio}px`;
+
+        // Add event listeners to highlight current section
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+          const minimapSection = minimapContent.querySelector(`#${section.id}`);
+          if (minimapSection) {
+            minimapSection.classList.remove('active-section');
+          }
+        });
       }
 
       function updateMinimapScroll() {
@@ -430,6 +449,19 @@
         const scrollPercentage = window.pageYOffset / (contentHeight - window.innerHeight);
         const sliderTop = scrollPercentage * (minimap.offsetHeight - minimapSlider.offsetHeight);
         minimapSlider.style.top = `${sliderTop}px`;
+
+        // Highlight current section
+        const sections = document.querySelectorAll('section');
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 150 && rect.bottom >= 150) {
+            const minimapSection = minimapContent.querySelector(`#${section.id}`);
+            if (minimapSection) {
+              minimapContent.querySelectorAll('.active-section').forEach(el => el.classList.remove('active-section'));
+              minimapSection.classList.add('active-section');
+            }
+          }
+        });
       }
 
       function scrollToPosition(y) {
