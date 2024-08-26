@@ -328,7 +328,7 @@
       if (targetElement) {
         const headerHeight = document.querySelector('header').offsetHeight;
         const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = targetPosition - headerHeight - 20; // Added extra 20px for spacing
+        const offsetPosition = targetPosition - headerHeight - 40; // Increased spacing to 40px
 
         window.scrollTo({
           top: offsetPosition,
@@ -355,7 +355,18 @@
       if (window.location.pathname === targetPath) {
         smoothScroll(targetAnchor);
       } else {
+        // If we're not on the home page, we need to navigate and then scroll
+        sessionStorage.setItem('scrollToSection', targetAnchor);
         window.location.href = targetHref;
+      }
+    });
+
+    // Check for stored scroll target on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const scrollToSection = sessionStorage.getItem('scrollToSection');
+      if (scrollToSection) {
+        sessionStorage.removeItem('scrollToSection');
+        setTimeout(() => smoothScroll(scrollToSection), 100);
       }
     });
 
