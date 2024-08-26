@@ -26,6 +26,31 @@
       background-color: #000000;
       font-size: 16px;
     }
+    /* Minimap styles */
+    #minimap {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 150px;
+      height: 300px;
+      background-color: rgba(30, 30, 30, 0.8);
+      border: 1px solid #64b5f6;
+      border-radius: 5px;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    #minimap-content {
+      transform-origin: top left;
+      transition: transform 0.1s ease-out;
+    }
+    #minimap-slider {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 8px;
+      background-color: rgba(100, 181, 246, 0.5);
+      border-radius: 4px;
+    }
     .container {
       max-width: 900px;
       margin: 0 auto;
@@ -342,6 +367,48 @@
 
     window.addEventListener('scroll', setActiveMenuItem);
     window.addEventListener('load', setActiveMenuItem);
+  </script>
+
+  <div id="minimap">
+    <div id="minimap-content"></div>
+    <div id="minimap-slider"></div>
+  </div>
+
+  <script>
+    // Minimap functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const minimap = document.getElementById('minimap');
+      const minimapContent = document.getElementById('minimap-content');
+      const minimapSlider = document.getElementById('minimap-slider');
+      const content = document.querySelector('main');
+
+      function updateMinimap() {
+        const scale = minimap.offsetHeight / content.scrollHeight;
+        minimapContent.style.transform = `scale(${scale})`;
+        minimapContent.innerHTML = content.innerHTML;
+
+        const sliderHeight = (window.innerHeight / content.scrollHeight) * minimap.offsetHeight;
+        minimapSlider.style.height = `${sliderHeight}px`;
+      }
+
+      function updateMinimapScroll() {
+        const scrollPercentage = window.scrollY / (content.scrollHeight - window.innerHeight);
+        const sliderTop = scrollPercentage * (minimap.offsetHeight - minimapSlider.offsetHeight);
+        minimapSlider.style.top = `${sliderTop}px`;
+      }
+
+      updateMinimap();
+      window.addEventListener('resize', updateMinimap);
+      window.addEventListener('scroll', updateMinimapScroll);
+
+      // Click on minimap to scroll
+      minimap.addEventListener('click', function(e) {
+        const clickPositionY = e.clientY - minimap.getBoundingClientRect().top;
+        const scrollPercentage = clickPositionY / minimap.offsetHeight;
+        const scrollTarget = scrollPercentage * (content.scrollHeight - window.innerHeight);
+        window.scrollTo(0, scrollTarget);
+      });
+    });
   </script>
 </body>
 </html>
