@@ -31,8 +31,12 @@
       position: fixed;
       top: 20px;
       right: 20px;
-      width: 150px;
-      height: 300px;
+      width: 12vw;
+      max-width: 200px;
+      min-width: 100px;
+      height: 24vw;
+      max-height: 400px;
+      min-height: 200px;
       background-color: rgba(30, 30, 30, 0.8);
       border: 1px solid #64b5f6;
       border-radius: 5px;
@@ -45,6 +49,13 @@
       position: absolute;
       top: 0;
       left: 0;
+    }
+    /* Adjust minimap size for smaller screens */
+    @media (max-width: 1200px) {
+      #minimap {
+        width: 15vw;
+        height: 30vw;
+      }
     }
     /* Hide minimap on mobile */
     @media (max-width: 768px) {
@@ -419,20 +430,25 @@
 
       function updateMinimap() {
         const contentHeight = Math.max(content.scrollHeight, window.innerHeight);
-        const scaleX = minimap.offsetWidth / content.scrollWidth;
+        const contentWidth = Math.max(content.scrollWidth, window.innerWidth);
+        const scaleX = minimap.offsetWidth / contentWidth;
         const scaleY = minimap.offsetHeight / contentHeight;
         const scale = Math.min(scaleX, scaleY);
 
         minimapContent.style.transform = `scale(${scale})`;
-        minimapContent.style.width = `${content.scrollWidth}px`;
+        minimapContent.style.width = `${contentWidth}px`;
         minimapContent.style.height = `${contentHeight}px`;
         minimapContent.innerHTML = content.innerHTML;
 
-
-        // Adjust minimap height to match content aspect ratio
-        const contentAspectRatio = content.scrollWidth / contentHeight;
+        // Ensure minimap aspect ratio matches content
+        const contentAspectRatio = contentWidth / contentHeight;
         const minimapWidth = minimap.offsetWidth;
-        minimap.style.height = `${minimapWidth / contentAspectRatio}px`;
+        const calculatedHeight = minimapWidth / contentAspectRatio;
+      
+        // Apply min and max height constraints
+        const minHeight = parseInt(window.getComputedStyle(minimap).minHeight);
+        const maxHeight = parseInt(window.getComputedStyle(minimap).maxHeight);
+        minimap.style.height = `${Math.max(minHeight, Math.min(calculatedHeight, maxHeight))}px`;
 
         updateVisibleArea();
       }
