@@ -1,23 +1,27 @@
 class PagesController < ApplicationController
   layout 'application'
   
+  before_action :set_page_class
+
   def flow
     @title = "Flow"
-    render layout: 'application', html: { class: 'documentation-page' }
   end
 
   def engineer
     @title = "Engineer"
-    render layout: 'application', html: { class: 'documentation-page' }
   end
 
   def become
     @title = "Become"
-    render layout: 'application', html: { class: 'documentation-page' }
   end
 
   def be
     @title = "Be"
-    render layout: 'application', html: { class: 'documentation-page' }
+  end
+
+  private
+
+  def set_page_class
+    @page_class = 'documentation-page'
   end
 end
