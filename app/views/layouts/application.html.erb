@@ -336,6 +336,7 @@
           <li><a href="#learn-more">Learn from socialmedia content</a></li>
           <li><a href="#discussion">Open a discussion with me</a></li>
           <li><a href="#documentation">Public Documentation</a></li>
+          <li><a href="/tools-and-setups">Tools and Setups</a></li>
           <li><a href="#feedback">Feedback</a></li>
           <li><a href="#donate">Donate</a></li>
         </ul>
@@ -377,6 +378,18 @@
           if (window.innerWidth <= 768) { // Only for mobile screens
             closeMenu();
           }
+          
+          const href = this.getAttribute('href');
+          if (href.startsWith('#')) {
+            e.preventDefault();
+            if (window.location.pathname === '/') {
+              // If on home page, just scroll to the section
+              smoothScroll(href.substring(1));
+            } else {
+              // If on another page, redirect to home page with anchor
+              window.location.href = '/' + href;
+            }
+          }
         });
       });
     });
@@ -403,8 +416,24 @@
           top: offsetPosition,
           behavior: 'smooth'
         });
+      } else {
+        // If the target element doesn't exist, it might be because we just redirected
+        // Set a flag in sessionStorage and reload the page
+        sessionStorage.setItem('scrollToSection', targetId);
+        if (window.location.pathname === '/') {
+          window.location.reload();
+        }
       }
     }
+
+    // Check for stored scroll target on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const scrollToSection = sessionStorage.getItem('scrollToSection');
+      if (scrollToSection) {
+        sessionStorage.removeItem('scrollToSection');
+        setTimeout(() => smoothScroll(scrollToSection), 100);
+      }
+    });
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
