@@ -6,3 +6,4 @@ class MetricsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 end
+
