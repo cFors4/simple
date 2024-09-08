@@ -1,0 +1,286 @@
+<!-- In your Rails view file (e.g., app/views/dashboard/index.html.erb) -->
+
+<div id="dashboard" class="min-h-screen bg-gray-100 p-8 pb-0">
+  <h1 class="text-3xl font-bold text-center mb-8">FLOW</h1>
+  <div id="category-list" class="category-list"></div>
+</div>
+
+<!-- Pop-up Modal Overlay -->
+<div id="domain-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all ease-in-out duration-300 scale-95 opacity-0">
+    <div id="modal-content">
+      <!-- Form content will be dynamically inserted here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  console.log("Script starting");
+
+  const domainCategories = [
+    { name: "RESOURCFUL", domains: ["Chemical", "Financial", "Physical"] },
+    { name: "VIBE/DIGITAL", domains: ["Electrical", "Purposeful", "Informational"] },
+    { name: "SUBJECTIVE", domains: ["Biological", "Mindful", "Existential/Experiential"] },
+    { name: "COMPETENCE", domains: ["Conditional", "Occupational", "Proficial/Skillful"] },
+    { name: "WORK", domains: ["Technological", "Organisational", "Relational"] },
+    { name: "COMMUNITY", domains: ["Familial", "Behavioural", "Transactional"] },
+    { name: "LIFE", domains: ["Educational", "Adaptable", "Recreational"] }
+  ];
+
+  function createHexagonalDomain(domain, categoryName) {
+    return `
+      <div class="hexagon-wrapper">
+        <button class="hexagon cursor-pointer bg-white hover:bg-blue-100" data-domain="${domain}" data-category="${categoryName}">
+          <div class="hexagon-content">
+            <span>${domain}</span>
+          </div>
+        </button>
+      </div>
+    `;
+  }
+
+  function createCategorySection(category) {
+    const section = document.createElement('div');
+    section.className = 'category-section mb-8';
+    section.innerHTML = `
+      <h3 class="category-title text-2xl font-bold mb-4">${category.name}</h3>
+      <div class="hexagon-container">
+        ${category.domains.map(domain => createHexagonalDomain(domain, category.name)).join('')}
+      </div>
+    `;
+    return section;
+  }
+
+  function createDomainForm(domain, category) {
+    console.log('Creating form for:', domain, category);
+    const modalContent = document.getElementById('modal-content');
+    modalContent.innerHTML = `
+      <div class="flex justify-between items-center mb-6">
+        <div>
+          <h2 class="text-2xl font-bold">${domain}</h2>
+          <p class="text-md text-gray-600">${category}</p>
+        </div>
+        <button id="close-form" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+      </div>
+      <form id="domain-data-form" class="grid grid-cols-1 gap-6">
+        <div class="space-y-4">
+          <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
+          <textarea id="notes" name="notes" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"></textarea>
+        </div>
+        <div>
+          <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
+          <select id="priority" name="priority" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+            <option>Low</option>
+            <option>Medium</option>
+            <option>High</option>
+          </select>
+        </div>
+        <div>
+          <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+          <select id="status" name="status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
+            <option>Not Started</option>
+            <option>In Progress</option>
+            <option>Completed</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Save</button>
+        </div>
+      </form>
+    `;
+    
+    const modal = document.getElementById('domain-modal');
+    modal.classList.remove('hidden');
+    document.body.classList.add('modal-open');
+    setTimeout(() => {
+      modal.querySelector('div').classList.remove('scale-95', 'opacity-0');
+    }, 10);
+
+    document.getElementById('close-form').addEventListener('click', closeForm);
+    document.getElementById('domain-data-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      console.log('Form submitted');
+      // Add your form submission logic here
+      closeForm();
+    });
+  }
+
+  function closeForm() {
+    console.log('Closing form');
+    const modal = document.getElementById('domain-modal');
+    const modalContent = modal.querySelector('div');
+    modalContent.classList.add('scale-95', 'opacity-0');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.classList.remove('modal-open');
+    }, 300);
+  }
+
+  function initDashboard() {
+    console.log('Initializing dashboard');
+    const list = document.getElementById('category-list');
+    const modal = document.getElementById('domain-modal');
+
+    function handleDomainClick(domain, categoryName) {
+      console.log('Domain clicked:', domain, 'Category:', categoryName);
+      createDomainForm(domain, categoryName);
+    }
+
+    domainCategories.forEach((category, index) => {
+      const section = createCategorySection(category);
+      list.appendChild(section);
+      console.log(`Added category: ${category.name} (index: ${index})`);
+    });
+
+    // Event delegation for hexagon clicks
+    list.addEventListener('click', function(event) {
+      const hexagon = event.target.closest('.hexagon');
+      if (hexagon) {
+        const domain = hexagon.getAttribute('data-domain');
+        const category = hexagon.getAttribute('data-category');
+        console.log('Hexagon clicked:', domain, 'Category:', category);
+        handleDomainClick(domain, category);
+      }
+    });
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        closeForm();
+      }
+    });
+
+    console.log('Dashboard initialized');
+  }
+
+  document.addEventListener('DOMContentLoaded', initDashboard);
+  // If using Turbolinks, also add:
+  // document.addEventListener('turbolinks:load', initDashboard);
+</script>
+
+<style>
+  body {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
+  body.form-open {
+    padding-bottom: 300px; /* Adjust based on your form height */
+  }
+  .category-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .category-section {
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+  .category-title {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  .hexagon-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hexagon-wrapper {
+    width: 120px;
+    height: 138px;
+    margin: 10px;
+    position: relative;
+  }
+  .hexagon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    transition: background-color 0.3s, transform 0.2s;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    z-index: 1;
+  }
+  .hexagon:hover, .hexagon:focus {
+    background-color: #e6f0ff;
+    transform: scale(1.05);
+  }
+  .hexagon-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .hexagon span {
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 0 5px;
+  }
+  #domain-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+    z-index: 1000;
+  }
+  #domain-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  #domain-modal.hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  #domain-modal:not(.hidden) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  #domain-modal:not(.hidden)::before {
+    opacity: 1;
+  }
+  #domain-modal > div {
+    position: relative;
+    max-height: 90vh;
+    width: 90%;
+    max-width: 500px;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1001;
+  }
+  #domain-modal:not(.hidden) > div {
+    transform: scale(1);
+    opacity: 1;
+  }
+  #modal-content {
+    padding: 2rem;
+  }
+  body.modal-open {
+    overflow: hidden;
+  }
+</style>

@@ -29,4 +29,7 @@ Rails.application.routes.draw do
   get "tools-and-setups/consumption-stack", to: "pages#consumption_stack"
   get "tools-and-setups/growth-stack", to: "pages#growth_stack"
   get "tools-and-setups/future-stack", to: "pages#future_stack"
+
+  # Add this line in the public documentation section
+  get "theory-of-everything", to: "pages#theory_of_everything"
 end

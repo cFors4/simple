@@ -75,6 +75,10 @@ class PagesController < ApplicationController
     @title = "Future Stack"
   end
 
+  def theory_of_everything
+    @title = "Theory of Everything"
+  end
+
   private
 
   def set_page_class
