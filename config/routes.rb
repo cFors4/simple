@@ -16,7 +16,6 @@ Rails.application.routes.draw do
 
   # Tools and Setups routes
   get "tools-and-setups", to: "pages#tools_and_setups"
-  get "tools-and-setups/dashboard", to: "pages#dashboard"
   get "tools-and-setups/self-sufficiency", to: "pages#self_sufficiency"
   get "tools-and-setups/personal-tech-stack", to: "pages#personal_tech_stack"
   get "tools-and-setups/saas-apps-stack", to: "pages#saas_apps_stack"
@@ -32,4 +31,8 @@ Rails.application.routes.draw do
 
   # Add this line in the public documentation section
   get "theory-of-everything", to: "pages#theory_of_everything"
+  get "toe", to: "pages#theory_of_everything"
+
+  get "dashboard", to: "pages#dashboard"
+  get "dash", to: "pages#dashboard"
 end

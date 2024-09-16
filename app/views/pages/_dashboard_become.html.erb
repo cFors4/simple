@@ -1,2 +1,65 @@
 <h2>Become Dashboard</h2>
-<p>This is the Become dashboard content. Add your specific Become-related metrics and information here.</p>
+
+<div class="dashboard-grid">
+  <div class="dashboard-section model">
+    <h3>Model</h3>
+    <p> a singularity of consciousness asymtoping down to a singularity with a circularting circle rotating around symbolising an ego</p>
+  </div>
+
+  <div class="dashboard-section analogy">
+    <h3>Analogy</h3>
+    <p>a sun shining onto a cloud</p>
+  </div>
+
+  <div class="dashboard-section equation">
+    <h3>Equation</h3>
+        <p>Mastery of Love (I Love - Wisdom) = (Input Forgiveness * Maximise Actualisation * Minimise Entropy) + (Process of Growing up * Inner Contemplation/Letting Go * Outer Authenticity)</p>
+  </div>
+
+  <div class="dashboard-section metrics">
+    <h3>Throughput Metrics</h3>
+    <ul>
+      <li>Level of Consciousness: %</li>
+      <li>Dualities to transcend: %</li>
+    </ul>
+  </div>
+
+  <div class="dashboard-section practice">
+    <h3>Practice</h3>
+    <p>Journal across a variety of spectrums and Letting Go</p>
+  </div>
+
+  <div class="dashboard-section graph">
+    <h3>Graph</h3>
+    <p>Level of consciousness over time, self documented and current</p>
+    <div id="becomeGraph"></div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Placeholder for graph initialization
+  // Replace with actual graph implementation
+  const ctx = document.getElementById('becomeGraph').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Become Progress',
+        data: [5, 10, 15, 20, 25, 30],
+        borderColor: 'rgb(255, 99, 132)',
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+});
+</script>

@@ -1,162 +1,55 @@
 <!-- In your Rails view file (e.g., app/views/dashboard/index.html.erb) -->
+<h2>Flow Dashboard</h2>
 
-<div id="dashboard" class="min-h-screen bg-gray-100 p-8 pb-0">
-  <h1 class="text-3xl font-bold text-center mb-8">FLOW</h1>
-  <div id="category-list" class="category-list"></div>
-</div>
+<!-- 6 categories moved to the top -->
+<div class="dashboard-grid">
+  <div class="dashboard-section model">
+    <h3>Model</h3>
+    <p>Energy first flow of bowtie triangles where the middle energetic interface intersetion is the emergence of the bowtie. Acts as a flywheel of energy momentum.</p>
+  </div>
 
-<!-- Pop-up Modal Overlay -->
-<div id="domain-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 transform transition-all ease-in-out duration-300 scale-95 opacity-0">
-    <div id="modal-content">
-      <!-- Form content will be dynamically inserted here -->
-    </div>
+  <div class="dashboard-section analogy">
+    <h3>Analogy</h3>
+    <p>A river of flow, with rocks of obstacles and bottlenecks of hindering the flow. The flow is the energy that is moving through the total dimensions of our lives.</p>
+  </div>
+
+  <div class="dashboard-section equation">
+    <h3>Equation</h3>
+        <p>Mastery of Energy (I Act - Power) = (Input Gratitude * Maximise Efficency * Minimise Waste) + (Process of Adapting * Inner Focus * Outer Impact)</p>
+  </div>
+
+  <div class="dashboard-section metrics">
+    <h3>Throughput Metrics for Flow</h3>
+    <ul>
+      <li>Percentage of stages fully vibrant: %</li>
+      <li>Pecentage of current priority stage fulfilled : %</li>
+      <li>Next bottleneck or obstacle identified: %</li>
+    </ul>
+  </div>
+
+  <div class="dashboard-section practice">
+    <h3>Practice</h3>
+    <p>Seving and helping others, and enabling our selves to be more capable and competent to be able to help others.</p>
+  </div>
+
+  <div class="dashboard-section graph">
+    <h3>Graph</h3>
+    <p>A 7 layered triangle each with 3 dimensions of flow.</p>
+    <div id="flowGraph"></div>
   </div>
 </div>
 
-<script>
-  console.log("Script starting");
+<!-- Rest of the content -->
+<ul class="list-none space-y-2">
+  <li><strong>RESOURCFUL:</strong> Chemical ------ Financial ------ Physical</li>
+  <li><strong>VIBRATIONAL:</strong> Electrical ------ Signal ------ Informational</li>
+  <li><strong>SUBJECTIVE:</strong> Biological ------ Mental ------ Existential/Experiential</li>
+  <li><strong>IMPACTFUl:</strong> Conditional ------ Occupational ------ Proficial/Skillful</li>
+  <li><strong>COLLECTIVE IMPACTFUL:</strong> Technological ------ Organisational ------ Relational</li>
+  <li><strong>COMMUNITY IMPACTFUL:</strong> Familial ------ Cultural ------ Transactional</li>
+  <li><strong>EVOLUTION IMPACTFUL:</strong> Educational ------ Adaptable ------ Recreational</li>
+</ul>
 
-  const domainCategories = [
-    { name: "RESOURCFUL", domains: ["Chemical", "Financial", "Physical"] },
-    { name: "VIBE/DIGITAL", domains: ["Electrical", "Purposeful", "Informational"] },
-    { name: "SUBJECTIVE", domains: ["Biological", "Mindful", "Existential/Experiential"] },
-    { name: "COMPETENCE", domains: ["Conditional", "Occupational", "Proficial/Skillful"] },
-    { name: "WORK", domains: ["Technological", "Organisational", "Relational"] },
-    { name: "COMMUNITY", domains: ["Familial", "Behavioural", "Transactional"] },
-    { name: "LIFE", domains: ["Educational", "Adaptable", "Recreational"] }
-  ];
-
-  function createHexagonalDomain(domain, categoryName) {
-    return `
-      <div class="hexagon-wrapper">
-        <button class="hexagon cursor-pointer bg-white hover:bg-blue-100" data-domain="${domain}" data-category="${categoryName}">
-          <div class="hexagon-content">
-            <span>${domain}</span>
-          </div>
-        </button>
-      </div>
-    `;
-  }
-
-  function createCategorySection(category) {
-    const section = document.createElement('div');
-    section.className = 'category-section mb-8';
-    section.innerHTML = `
-      <h3 class="category-title text-2xl font-bold mb-4">${category.name}</h3>
-      <div class="hexagon-container">
-        ${category.domains.map(domain => createHexagonalDomain(domain, category.name)).join('')}
-      </div>
-    `;
-    return section;
-  }
-
-  function createDomainForm(domain, category) {
-    console.log('Creating form for:', domain, category);
-    const modalContent = document.getElementById('modal-content');
-    modalContent.innerHTML = `
-      <div class="flex justify-between items-center mb-6">
-        <div>
-          <h2 class="text-2xl font-bold">${domain}</h2>
-          <p class="text-md text-gray-600">${category}</p>
-        </div>
-        <button id="close-form" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
-      </div>
-      <form id="domain-data-form" class="grid grid-cols-1 gap-6">
-        <div class="space-y-4">
-          <label for="notes" class="block text-sm font-medium text-gray-700">Notes</label>
-          <textarea id="notes" name="notes" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm"></textarea>
-        </div>
-        <div>
-          <label for="priority" class="block text-sm font-medium text-gray-700">Priority</label>
-          <select id="priority" name="priority" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
-            <option>Low</option>
-            <option>Medium</option>
-            <option>High</option>
-          </select>
-        </div>
-        <div>
-          <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-          <select id="status" name="status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm">
-            <option>Not Started</option>
-            <option>In Progress</option>
-            <option>Completed</option>
-          </select>
-        </div>
-        <div>
-          <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Save</button>
-        </div>
-      </form>
-    `;
-    
-    const modal = document.getElementById('domain-modal');
-    modal.classList.remove('hidden');
-    document.body.classList.add('modal-open');
-    setTimeout(() => {
-      modal.querySelector('div').classList.remove('scale-95', 'opacity-0');
-    }, 10);
-
-    document.getElementById('close-form').addEventListener('click', closeForm);
-    document.getElementById('domain-data-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log('Form submitted');
-      // Add your form submission logic here
-      closeForm();
-    });
-  }
-
-  function closeForm() {
-    console.log('Closing form');
-    const modal = document.getElementById('domain-modal');
-    const modalContent = modal.querySelector('div');
-    modalContent.classList.add('scale-95', 'opacity-0');
-    setTimeout(() => {
-      modal.classList.add('hidden');
-      document.body.classList.remove('modal-open');
-    }, 300);
-  }
-
-  function initDashboard() {
-    console.log('Initializing dashboard');
-    const list = document.getElementById('category-list');
-    const modal = document.getElementById('domain-modal');
-
-    function handleDomainClick(domain, categoryName) {
-      console.log('Domain clicked:', domain, 'Category:', categoryName);
-      createDomainForm(domain, categoryName);
-    }
-
-    domainCategories.forEach((category, index) => {
-      const section = createCategorySection(category);
-      list.appendChild(section);
-      console.log(`Added category: ${category.name} (index: ${index})`);
-    });
-
-    // Event delegation for hexagon clicks
-    list.addEventListener('click', function(event) {
-      const hexagon = event.target.closest('.hexagon');
-      if (hexagon) {
-        const domain = hexagon.getAttribute('data-domain');
-        const category = hexagon.getAttribute('data-category');
-        console.log('Hexagon clicked:', domain, 'Category:', category);
-        handleDomainClick(domain, category);
-      }
-    });
-
-    // Close modal when clicking outside
-    modal.addEventListener('click', function(event) {
-      if (event.target === modal) {
-        closeForm();
-      }
-    });
-
-    console.log('Dashboard initialized');
-  }
-
-  document.addEventListener('DOMContentLoaded', initDashboard);
-  // If using Turbolinks, also add:
-  // document.addEventListener('turbolinks:load', initDashboard);
-</script>
 
 <style>
   body {
@@ -282,5 +175,75 @@
   }
   body.modal-open {
     overflow: hidden;
+  }
+
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .dashboard-section {
+    background-color: #f0f4f8;
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .dashboard-section h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-section p {
+    margin-bottom: 0.5rem;
+  }
+
+  .dashboard-section ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .dashboard-section li {
+    margin-bottom: 0.25rem;
+  }
+
+  .dashboard-section.model {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+  }
+
+  .dashboard-section.analogy {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+  }
+
+  .dashboard-section.equation {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+  }
+
+  .dashboard-section.metrics {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+  }
+
+  .dashboard-section.practice {
+    grid-column: 1 / 2;
+    grid-row: 3 / 4;
+  }
+
+  .dashboard-section.graph {
+    grid-column: 2 / 3;
+    grid-row: 3 / 4;
   }
 </style>

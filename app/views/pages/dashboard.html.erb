@@ -4,7 +4,8 @@
   <nav class="dashboard-tabs">
     <button id="prevTab" class="nav-arrow">&larr;</button>
     <ul>
-      <li data-tab="flow" class="active">Flow</li>
+      <li data-tab="aware-agency">Aware Agency</li>
+      <li data-tab="flow">Flow</li>
       <li data-tab="build">Build</li>
       <li data-tab="become">Become</li>
       <li data-tab="be">Be</li>
@@ -13,7 +14,29 @@
   </nav>
 
   <div class="dashboard-content">
-    <div id="flow" class="tab-content active">
+    <div id="aware-agency" class="tab-content active">
+      <h2>Aware Agency</h2>
+      <div class="overall-percentage">Overall: <span id="overallPercentage">0</span>%</div>
+      <div class="diamond-container">
+        <div class="diamond-square" data-tab="flow">
+          <span class="square-title">Flow</span>
+          <span class="square-percentage">0%</span>
+        </div>
+        <div class="diamond-square" data-tab="build">
+          <span class="square-title">Build</span>
+          <span class="square-percentage">0%</span>
+        </div>
+        <div class="diamond-square" data-tab="become">
+          <span class="square-title">Become</span>
+          <span class="square-percentage">0%</span>
+        </div>
+        <div class="diamond-square" data-tab="be">
+          <span class="square-title">Be</span>
+          <span class="square-percentage">0%</span>
+        </div>
+      </div>
+    </div>
+    <div id="flow" class="tab-content">
       <%= render partial: 'pages/dashboard_flow' %>
       <div class="flow-visualization">
         <h3>Flow Visualization</h3>
@@ -39,7 +62,7 @@
     const tabContents = document.querySelectorAll('.tab-content');
     const prevButton = document.getElementById('prevTab');
     const nextButton = document.getElementById('nextTab');
-    let currentTabIndex = 0;
+    let currentTabIndex = parseInt(localStorage.getItem('currentTabIndex')) || 0;
 
     function updateActiveTab() {
       tabs.forEach((tab, index) => {
@@ -51,6 +74,7 @@
           tabContents[index].classList.remove('active');
         }
       });
+      localStorage.setItem('currentTabIndex', currentTabIndex);
     }
 
     prevButton.addEventListener('click', function() {
@@ -67,6 +91,21 @@
       tab.addEventListener('click', function() {
         currentTabIndex = index;
         updateActiveTab();
+      });
+    });
+
+    updateActiveTab();
+
+    // Diamond square click handling
+    const diamondSquares = document.querySelectorAll('.diamond-square');
+    diamondSquares.forEach(square => {
+      square.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        const tabIndex = Array.from(tabs).findIndex(tab => tab.getAttribute('data-tab') === tabName);
+        if (tabIndex !== -1) {
+          currentTabIndex = tabIndex;
+          updateActiveTab();
+        }
       });
     });
 
@@ -145,6 +184,23 @@
     flowForm.addEventListener('click', function(event) {
       event.stopPropagation();
     });
+
+    // Function to update percentages (placeholder)
+    function updatePercentages() {
+      const overallPercentage = document.getElementById('overallPercentage');
+      const squarePercentages = document.querySelectorAll('.square-percentage');
+      
+      // Placeholder: Generate random percentages
+      const randomPercentage = () => Math.floor(Math.random() * 101);
+      
+      overallPercentage.textContent = randomPercentage();
+      squarePercentages.forEach(span => {
+        span.textContent = `${randomPercentage()}%`;
+      });
+    }
+
+    // Update percentages on page load (for demonstration)
+    updatePercentages();
   });
 </script>
 
@@ -236,5 +292,77 @@
   .flow-form-overlay.show {
     opacity: 1;
     visibility: visible;
+  }
+
+  .overall-percentage {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .diamond-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 60px; /* Increased from 40px to 60px */
+    width: 400px; /* Increased from 340px to accommodate the larger gap */
+    height: 400px; /* Increased from 340px to accommodate the larger gap */
+    margin: 40px auto;
+  }
+
+  .diamond-square {
+    width: 140px; /* Decreased from 150px */
+    height: 140px; /* Decreased from 150px */
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: rotate(45deg);
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .diamond-square:nth-child(1) { /* Flow */
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    justify-self: center;
+    align-self: start;
+  }
+
+  .diamond-square:nth-child(2) { /* Build */
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    justify-self: end;
+    align-self: center;
+  }
+
+  .diamond-square:nth-child(3) { /* Become */
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    justify-self: center;
+    align-self: end;
+  }
+
+  .diamond-square:nth-child(4) { /* Be */
+    grid-column: 1 / 2;
+    grid-row: 1 / 3;
+    justify-self: start;
+    align-self: center;
+  }
+
+  .diamond-square span {
+    transform: rotate(-45deg);
+    text-align: center;
+  }
+
+  .square-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.8rem; /* Decreased from 0.9rem */
+  }
+
+  .square-percentage {
+    font-size: 1.1rem; /* Decreased from 1.2rem */
   }
 </style>
