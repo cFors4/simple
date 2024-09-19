@@ -1,6 +1,56 @@
 <h2>Build Dashboard - "Build your self, build your skills, build your systems"</h2>
 
-<div class="build-intro">
+<div class="overall-percentage">Build Progress: <span id="buildOverallPercentage">0</span>%</div>
+
+<div class="diamond-container build-diamond">
+  <%= link_to homo_memetic_techno_capital_path, class: "diamond-square", data: { build_area: "homo-memetic-techno-capital" } do %>
+    <span class="square-title">Homo-Memetic-Techno-Capital</span>
+    <span class="square-percentage">0%</span>
+  <% end %>
+  <%= link_to skillful_path, class: "diamond-square", data: { build_area: "skillful" } do %>
+    <span class="square-title">Skillful</span>
+    <span class="square-percentage">0%</span>
+  <% end %>
+  <%= link_to purpose_programming_path, class: "diamond-square", data: { build_area: "purpose-programming" } do %>
+    <span class="square-title">Purpose/Programming</span>
+    <span class="square-percentage">0%</span>
+  <% end %>
+  <%= link_to individual_configurability_path, class: "diamond-square", data: { build_area: "individual-configurability" } do %>
+    <span class="square-title">Individual Configurability</span>
+    <span class="square-percentage">0%</span>
+  <% end %>
+</div>
+
+<!-- 6 categories -->
+<div class="dashboard-grid">
+  <div id="model" class="dashboard-section model">
+    <h3>Model</h3>
+    <p>A System of systems, fractal in nature, inputs,  feedback, outputs, state, skills, and goals.</p>
+  </div>
+
+  <div id="analogy" class="dashboard-section analogy">
+    <h3>Analogy</h3>
+    <p>An optimisation of multiple stocks and flows to be looked at holistically for one to many goals. This is a landscape of global optimisations.</p>
+  </div>
+
+  <div id="equation" class="dashboard-section equation">
+    <h3>Equation of Mastery</h3>
+    <p>Mastery of Systems (I Know with Clarity) = (Input Responsibility * Maximise Productivity * Minimise Bottlenecks) + (Process of Iterating * Inner Integrity * Outer Solving)</p>
+  </div>
+
+  <div id="metrics" class="dashboard-section metrics">
+    <h3>Throughput Metrics for Build</h3>
+    <ul>
+      <li>Throughput or Impactful Activity: %</li>
+      <li>Operational Expense or Energised Tranquility: %</li>
+      <li>Investment or Profound Experience: %</li>
+    </ul>
+  </div>
+
+  <div id="practice" class="dashboard-section practice">
+    <h3>Practice</h3>
+    <p>Problem solve, iterate, experiment and build better systems. 12 Leverage points and 5 step process.</p>
+    <div class="build-intro">
   <div class="collapsible-section">
     <h3 class="collapsible-header">Theory of Constraints: 5-Step Process <span class="toggle-icon">+</span></h3>
     <div class="collapsible-content hidden">
@@ -34,67 +84,6 @@
     </div>
   </div>
 </div>
-
-<div class="overall-percentage">Build Progress: <span id="buildOverallPercentage">0</span>%</div>
-
-<div class="diamond-container build-diamond">
-  <div class="diamond-square" data-build-area="homo-memetic-techno-capital">
-    <span class="square-title">Homo-Memetic-Techno-Capital</span>
-    <span class="square-percentage">0%</span>
-  </div>
-  <div class="diamond-square" data-build-area="skillful">
-    <span class="square-title">Skillful</span>
-    <span class="square-percentage">0%</span>
-  </div>
-  <div class="diamond-square" data-build-area="purpose-programming">
-    <span class="square-title">Purpose/Programming</span>
-    <span class="square-percentage">0%</span>
-  </div>
-  <div class="diamond-square" data-build-area="individual-configurability">
-    <span class="square-title">Individual Configurability</span>
-    <span class="square-percentage">0%</span>
-  </div>
-</div>
-
-<div class="build-details">
-  <h3>Build Areas</h3>
-  <ul>
-    <li><strong>Homo-Memetic-Techno-Capital:</strong> Integration of human, memetic, technological, and capital resources</li>
-    <li><strong>Skillful:</strong> Development and mastery of relevant skills</li>
-    <li><strong>Purpose/Programming:</strong> Aligning purpose with programming capabilities</li>
-    <li><strong>Individual Configurability:</strong> Customization and adaptability to individual needs</li>
-  </ul>
-</div>
-
-<!-- 6 categories -->
-<div class="dashboard-grid">
-  <div id="model" class="dashboard-section model">
-    <h3>Model</h3>
-    <p>Description of the Build model goes here.</p>
-  </div>
-
-  <div id="analogy" class="dashboard-section analogy">
-    <h3>Analogy</h3>
-    <p>An analogy explaining Build concept goes here.</p>
-  </div>
-
-  <div id="equation" class="dashboard-section equation">
-    <h3>Equation of Mastery</h3>
-    <p>Mastery of Systems (I Know with Clarity) = (Input Responsibility * Maximise Productivity * Minimise Bottlenecks) + (Process of Iterating * Inner Integrity * Outer Solving)</p>
-  </div>
-
-  <div id="metrics" class="dashboard-section metrics">
-    <h3>Throughput Metrics for Build</h3>
-    <ul>
-      <li>Throughput or Impactful Activity: %</li>
-      <li>Operational Expense or Energised Tranquility: %</li>
-      <li>Investment or Profound Experience: %</li>
-    </ul>
-  </div>
-
-  <div id="practice" class="dashboard-section practice">
-    <h3>Practice</h3>
-    <p>Problem solve, iterate, experiment and build better systems. 12 Leverage points and 5 step process.</p>
   </div>
 
   <div id="graph" class="dashboard-section graph">
@@ -153,6 +142,13 @@
   .build-diamond .diamond-square {
     width: 140px;
     height: 140px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
   }
 
   .build-details {
@@ -238,15 +234,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Update percentages on page load (for demonstration)
   updateBuildPercentages();
-
-  // Add click event listeners to the diamond squares
-  const buildSquares = document.querySelectorAll('.build-diamond .diamond-square');
-  buildSquares.forEach(square => {
-    square.addEventListener('click', function() {
-      const buildArea = this.getAttribute('data-build-area');
-      alert(`Clicked on ${buildArea} area. You can add specific actions or information for this build area.`);
-    });
-  });
 
   // Graph initialization
   const ctx = document.getElementById('buildGraph').getContext('2d');

@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
-  layout 'application'
-  
+  layout "application"
+
   before_action :set_page_class
 
   def flow
@@ -79,9 +79,25 @@ class PagesController < ApplicationController
     @title = "Theory of Everything"
   end
 
+  def homo_memetic_techno_capital
+    @title = "Homo-Memetic-Techno-Capital"
+  end
+
+  def skillful
+    @title = "Skillful"
+  end
+
+  def purpose_programming
+    @title = "Purpose/Programming"
+  end
+
+  def individual_configurability
+    @title = "Individual Configurability"
+  end
+
   private
 
   def set_page_class
-    @page_class = 'documentation-page'
+    @page_class = "documentation-page"
   end
 end

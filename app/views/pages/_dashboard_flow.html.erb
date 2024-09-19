@@ -7,7 +7,8 @@
   
   <div class="overarching-flow-goal">
     <h4>Overarching Flow Goal</h4>
-    <input type="text" id="flowGoal" placeholder="Enter your overarching flow goal here">
+    <textarea id="flowGoal" placeholder="Enter your overarching flow goal here" rows="3"></textarea>
+    <div class="button-spacer"></div>
     <button onclick="saveFlowGoal()">Save Goal</button>
     <p id="currentFlowGoal"></p>
   </div>
@@ -24,7 +25,7 @@
     <h4>Flow Categories - Low order to High order - How actualised is your Energy and Impact?</h4>
     <div class="flow-heuristics-grid">
       <div class="flow-heuristic">
-        <h4>RESOURCEFUL</h4>
+        <h4>1. RESOURCEFUL</h4>
         <ul>
           <li>Chemical</li>
           <li>Financial</li>
@@ -36,7 +37,7 @@
         </div>
       </div>
       <div class="flow-heuristic">
-        <h4>VIBRATIONAL</h4>
+        <h4>2. VIBRATIONAL</h4>
         <ul>
           <li>Electrical</li>
           <li>Signal</li>
@@ -48,7 +49,7 @@
         </div>
       </div>
       <div class="flow-heuristic">
-        <h4>SUBJECTIVE</h4>
+        <h4>3. SUBJECTIVE</h4>
         <ul>
           <li>Biological</li>
           <li>Mental</li>
@@ -60,7 +61,7 @@
         </div>
       </div>
       <div class="flow-heuristic">
-        <h4>IMPACTFUL</h4>
+        <h4>4. IMPACTFUL</h4>
         <ul>
           <li>Conditional</li>
           <li>Occupational</li>
@@ -72,7 +73,7 @@
         </div>
       </div>
       <div class="flow-heuristic">
-        <h4>COLLECTIVE IMPACTFUL</h4>
+        <h4>5. COLLECTIVE IMPACTFUL</h4>
         <ul>
           <li>Technological</li>
           <li>Organisational</li>
@@ -84,7 +85,7 @@
         </div>
       </div>
       <div class="flow-heuristic">
-        <h4>COMMUNITY IMPACTFUL</h4>
+        <h4>6. COMMUNITY IMPACTFUL</h4>
         <ul>
           <li>Familial</li>
           <li>Cultural</li>
@@ -96,7 +97,7 @@
         </div>
       </div>
       <div class="flow-heuristic">
-        <h4>EVOLUTION IMPACTFUL</h4>
+        <h4>7. EVOLUTION IMPACTFUL</h4>
         <ul>
           <li>Educational</li>
           <li>Adaptable</li>
@@ -115,7 +116,7 @@
 <!-- 6 categories moved to the bottom -->
 <div class="dashboard-grid">
   <div id="model" class="dashboard-section model">
-    <h3>Model</h3>
+    <h3>Model of Geometric Flow</h3>
     <p>Energy first flow of bowtie triangles where the middle energetic interface intersection is the emergence of the bowtie. Acts as a flywheel of energy momentum.</p>
   </div>
 
@@ -144,18 +145,6 @@
   </div>
 </div>
 
-<!-- Rest of the content -->
-<ul class="list-none space-y-2">
-  <li><strong>RESOURCFUL:</strong> Chemical ------ Financial ------ Physical</li>
-  <li><strong>VIBRATIONAL:</strong> Electrical ------ Signal ------ Informational</li>
-  <li><strong>SUBJECTIVE:</strong> Biological ------ Mental ------ Existential/Experiential</li>
-  <li><strong>IMPACTFUl:</strong> Conditional ------ Occupational ------ Proficial/Skillful</li>
-  <li><strong>COLLECTIVE IMPACTFUL:</strong> Technological ------ Organisational ------ Relational</li>
-  <li><strong>COMMUNITY IMPACTFUL:</strong> Familial ------ Cultural ------ Transactional</li>
-  <li><strong>EVOLUTION IMPACTFUL:</strong> Educational ------ Adaptable ------ Recreational</li>
-</ul>
-
-
 <style>
   body {
     padding-bottom: 0;
@@ -174,14 +163,20 @@
     margin-top: 0;
     margin-bottom: 10px;
   }
-  .overarching-flow-goal input[type="text"] {
-    width: calc(100% - 110px);
+  .overarching-flow-goal textarea {
+    width: 100%;
+    max-width: 800px; /* Increased from implicit browser default */
     padding: 10px;
-    margin-right: 10px;
+    margin-bottom: 10px;
     border-radius: 4px;
     border: 1px solid #444;
     background-color: #1e1e1e;
     color: #ffffff;
+    resize: vertical;
+  }
+  .overarching-flow-goal {
+    max-width: 800px; /* Added to constrain the entire container */
+    margin: 0 auto; /* Center the container */
   }
   .overarching-flow-goal button {
     background-color: #64b5f6;
@@ -198,6 +193,9 @@
   .overarching-flow-goal p {
     margin-top: 10px;
     margin-bottom: 0;
+  }
+  .button-spacer {
+    height: 10px;
   }
   .full-width {
     width: 100%;

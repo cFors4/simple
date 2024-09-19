@@ -1,0 +1,177 @@
+<nav class="dashboard-tabs">
+    <button id="prevTab" class="nav-arrow">&larr;</button>
+    <ul>
+      <li data-tab="aware-agency">Aware Agency</li>
+      <li data-tab="flow">Flow</li>
+      <li data-tab="build">Build</li>
+      <li data-tab="become">Become</li>
+      <li data-tab="be">Be</li>
+    </ul>
+    <button id="nextTab" class="nav-arrow">&rarr;</button>
+  </nav>
+<div class="content-container">
+  <h1>Homo-Memetic-Techno-Capital</h1>
+  <p>This page is about the Homo-Memetic-Techno-Capital build area.</p>
+  <!-- Add more content specific to this build area -->
+</div> 
+
+<div class="hmtc-dashboard">
+  <h2>Homo-Memetic-Techno-Capital Dashboard</h2>
+  <div class="total-percentage">
+    <h3>Total Percentage: <span id="totalPercentage">0</span>%</h3>
+  </div>
+  
+  <div class="category-sliders">
+    <div class="category">
+      <label for="industry-market">Industry/Market (Transactional/Offering)</label>
+      <input type="range" id="industry-market" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="cost-revenue">Cost/Revenue (Finance)</label>
+      <input type="range" id="cost-revenue" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="architecture-domain">Architecture/Domain (Problem Solving)</label>
+      <input type="range" id="architecture-domain" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="hardware-networks">Hardware/Networks (Machines)</label>
+      <input type="range" id="hardware-networks" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="infrastructure-communication">Infrastructure/Communication (Hosting/Sending)</label>
+      <input type="range" id="infrastructure-communication" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="data-config">Data/Config (Storage)</label>
+      <input type="range" id="data-config" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="patterns-rules">Patterns/Rules (Code)</label>
+      <input type="range" id="patterns-rules" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="practices-tools">Practices/Tools (WoW)</label>
+      <input type="range" id="practices-tools" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="process-people">Process/People (Business)</label>
+      <input type="range" id="process-people" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="artifact-releases">Artifact/Releases (DevOps)</label>
+      <input type="range" id="artifact-releases" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="interfaces-users">Interfaces/Users (Interaction)</label>
+      <input type="range" id="interfaces-users" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="service-pain">Service/Pain (Priority)</label>
+      <input type="range" id="service-pain" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="metrics-alerts">Metrics/Alerts (Observability)</label>
+      <input type="range" id="metrics-alerts" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="escalation-support">Escalation/Support (Fixing/Operations)</label>
+      <input type="range" id="escalation-support" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="marketing-sales">Marketing/Sales (Inflow/Outflow)</label>
+      <input type="range" id="marketing-sales" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+    
+    <div class="category">
+      <label for="goodwill-trust">Goodwill/Trust (Relationships)</label>
+      <input type="range" id="goodwill-trust" min="0" max="100" value="0" class="slider">
+      <span class="percentage">0%</span>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const sliders = document.querySelectorAll('.slider');
+  const totalPercentage = document.getElementById('totalPercentage');
+
+  function updatePercentages() {
+    let total = 0;
+    sliders.forEach(slider => {
+      const percentage = slider.nextElementSibling;
+      percentage.textContent = slider.value + '%';
+      total += parseInt(slider.value);
+    });
+    totalPercentage.textContent = Math.round(total / sliders.length);
+  }
+
+  sliders.forEach(slider => {
+    slider.addEventListener('input', updatePercentages);
+  });
+
+  updatePercentages();
+});
+</script>
+
+<style>
+.hmtc-dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.category {
+  margin-bottom: 15px;
+}
+
+.category label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.slider {
+  width: 100%;
+}
+
+.percentage {
+  display: inline-block;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.total-percentage {
+  text-align: center;
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+</style>

@@ -1,0 +1,6 @@
+<div class="tab-bar">
+  <%= link_to "Flow", flow_path, class: "tab-item #{'active' if current_page?(flow_path)}" %>
+  <%= link_to "Engineer", engineer_path, class: "tab-item #{'active' if current_page?(engineer_path)}" %>
+  <%= link_to "Become", become_path, class: "tab-item #{'active' if current_page?(become_path)}" %>
+  <%= link_to "Be", be_path, class: "tab-item #{'active' if current_page?(be_path)}" %>
+</div>

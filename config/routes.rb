@@ -35,4 +35,9 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "pages#dashboard"
   get "dash", to: "pages#dashboard"
+
+  get "homo-memetic-techno-capital", to: "pages#homo_memetic_techno_capital"
+  get "skillful", to: "pages#skillful"
+  get "purpose-programming", to: "pages#purpose_programming"
+  get "individual-configurability", to: "pages#individual_configurability"
 end
