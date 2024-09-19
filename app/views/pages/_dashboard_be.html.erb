@@ -1,65 +1,296 @@
-<h2>Be Dashboard</h2>
-<div class="dashboard-grid">
-  <div class="dashboard-section model">
-    <h3>Model of geomety</h3>
-    <p>A centered dot and a realised circle, where we can find a center and clear distinction of our true self and external senations and sitations.</p>
+<h2>Be Dashboard - "Be the best version of yourself"</h2>
+
+<div id="graph" class="dashboard-section graph full-width">
+  <h3>Graph of Inputs</h3>
+  <p>7 categories of self-discovery and centeredness.</p>
+  
+  <div class="be-circle-container">
+    <div id="centerPercentage" class="center-percentage">0%</div>
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="90" fill="none" stroke="#444" stroke-width="10" />
+      <circle id="progressCircle" cx="100" cy="100" r="90" fill="none" stroke="#64b5f6" stroke-width="10" stroke-dasharray="565.48" stroke-dashoffset="565.48" />
+      <circle cx="100" cy="100" r="5" fill="#ffffff" />
+    </svg>
   </div>
 
-  <div class="dashboard-section analogy">
+  <div class="heuristics-container">
+    <h4>Centeredness Categories</h4>
+    <div class="heuristics-grid">
+      <div class="heuristic-column">
+        <div class="heuristic">
+          <h4>FOUNDATION</h4>
+          <ul>
+            <li>Sila/Ethics</li>
+            <li>Samadhi/Concentration</li>
+            <li>Panna/Insight</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic1" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+        <div class="heuristic">
+          <h4>VIRTUE</h4>
+          <ul>
+            <li>Courage</li>
+            <li>Compassion</li>
+            <li>Curiosity</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic2" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+        <div class="heuristic">
+          <h4>WHAT IS</h4>
+          <ul>
+            <li>Awareness</li>
+            <li>Body</li>
+            <li>Mind</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic3" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+      </div>
+      <div class="heuristic-column center-column">
+        <div class="heuristic">
+          <h4>HARMONY</h4>
+          <ul>
+            <li>Profoundness</li>
+            <li>Happiness</li>
+            <li>Skillfulness</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic4" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+      </div>
+      <div class="heuristic-column">
+        <div class="heuristic">
+          <h4>MIRROR</h4>
+          <ul>
+            <li>Self</li>
+            <li>Sensation</li>
+            <li>Situation</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic5" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+        <div class="heuristic">
+          <h4>SKILL</h4>
+          <ul>
+            <li>Conscious&nbsp;Mindfulness</li>
+            <li>Honed Focus</li>
+            <li>Open Awareness</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic6" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+        <div class="heuristic">
+          <h4>UNHAPPINESS</h4>
+          <ul>
+            <li>Ignorance</li>
+            <li>Craving</li>
+            <li>Aversion</li>
+          </ul>
+          <div class="slider-container">
+            <input type="range" id="heuristic7" min="0" max="100" value="0">
+            <span class="heuristic-value">0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-grid">
+  <div id="model" class="dashboard-section model">
+    <h3>Model of geometry</h3>
+    <p>A nested series of traingles glowing or not as we realise our nature and peace.</p>
+  </div>
+
+  <div id="practice" class="dashboard-section practice">
+    <h3>Practice</h3>
+    <p>Vipassana Meditation</p>
+    <a href="https://www.dhamma.org/en/schedules/schdipa">10 day Vipassana Course</a>
+  </div>
+
+  <div id="analogy" class="dashboard-section analogy">
     <h3>Analogy</h3>
     <p>A best self eye and a series of lenses that distort our view of the world and our self. Where through the lens' we end up showing up on the earth, as our best self given our current perceptions.</p>
   </div>
 
-  <div class="dashboard-section equation">
-    <h3>Equation</h3>
-        <p>Mastery of Presence (I Am - Peace) = (Input Acceptance * Maximise Equanimous Observing * Minimise Misery) + (Process of Learning * Inner Observation * Outer Realisation)</p>
+  <div id="equation" class="dashboard-section equation">
+    <h3>Equation of Mastery</h3>
+        <p>Mastery of Presence (I Am with Peace) = (Input Acceptance * Maximise Equanimous Observing * Minimise Misery) + (Process of Learning * Inner Observation * Outer Realisation)</p>
   </div>
 
-  <div class="dashboard-section metrics">
+  <div id="metrics" class="dashboard-section metrics">
     <h3>Throughput Metrics for Be</h3>
     <ul>
       <li>Centered: %</li>
       <li>Realised: %</li>
     </ul>
   </div>
-
-  <div class="dashboard-section practice">
-    <h3>Practice</h3>
-    <p>Vipassana Meditatin</p>
-    <a href="https://www.dhamma.org/en/schedules/schdipa">10 day Vipassana Course</a>
-  </div>
-
-  <div class="dashboard-section graph">
-    <h3>Graph</h3>
-    <p>7 nested triangles of self-discovery and 10 rays of paired centeredness.</p>
-    <div id="beGraph"></div>
-  </div>
 </div>
 
+<style>
+  .full-width {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .be-circle-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 1rem auto;
+  }
+  .center-percentage {
+    position: absolute;
+    top: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .heuristics-container {
+    margin-top: 10px;
+  }
+  .heuristics-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+  }
+  .heuristic-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+  }
+  .center-column {
+    justify-content: center;
+  }
+  .heuristic, .dashboard-section {
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+  }
+  .heuristic h4 {
+    margin: 0 0 5px 0;
+    font-size: 0.9em;
+  }
+  .heuristic ul {
+    margin: 0 0 10px 0;
+  }
+  .heuristic li {
+    font-size: 0.8em;
+    margin-bottom: 2px;
+  }
+  .slider-container {
+    display: flex;
+    align-items: center;
+  }
+  .slider-container input[type="range"] {
+    flex-grow: 1;
+    margin-right: 10px;
+  }
+  .heuristic-value {
+    min-width: 40px;
+    text-align: right;
+  }
+</style>
+
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Placeholder for graph initialization
-  // Replace with actual graph implementation
-  const ctx = document.getElementById('beGraph').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [{
-        label: 'Be Progress',
-        data: [30, 25, 20, 15, 10, 5],
-        borderColor: 'rgb(54, 162, 235)',
-        tension: 0.1
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
+  document.addEventListener('DOMContentLoaded', function() {
+    const flowPercentage = document.getElementById('flowPercentage');
+    const progressTriangle = document.getElementById('progressTriangle');
+    const heuristics = document.querySelectorAll('.flow-heuristic input');
+    const heuristicValues = document.querySelectorAll('.heuristic-value');
+    const vibrantPercentage = document.getElementById('vibrantPercentage');
+    const priorityPercentage = document.getElementById('priorityPercentage');
+    const bottleneckPercentage = document.getElementById('bottleneckPercentage');
+    let chart;
+
+    function updateTriangle() {
+      let total = 0;
+      heuristics.forEach((heuristic, index) => {
+        total += parseInt(heuristic.value);
+        heuristicValues[index].textContent = heuristic.value + '%';
+      });
+      const average = total / heuristics.length;
+      flowPercentage.textContent = Math.round(average) + '%';
+
+      // Update the triangle
+      const height = 180 * (average / 100);
+      const baseWidth = 180 * (average / 100);
+      const leftX = 100 - baseWidth / 2;
+      const rightX = 100 + baseWidth / 2;
+      const points = `100,${190 - height} ${leftX},190 ${rightX},190`;
+      progressTriangle.setAttribute('points', points);
+
+      // Update other metrics
+      vibrantPercentage.textContent = Math.round(Math.random() * 100);
+      priorityPercentage.textContent = Math.round(Math.random() * 100);
+      bottleneckPercentage.textContent = Math.round(Math.random() * 100);
+
+      // Update the chart
+      updateChart();
+    }
+
+    function updateChart() {
+      if (chart) {
+        const newData = Array.from(heuristics).map(heuristic => parseInt(heuristic.value));
+        chart.data.datasets[0].data = newData;
+        chart.update();
       }
     }
+
+    heuristics.forEach(heuristic => {
+      heuristic.addEventListener('input', updateTriangle);
+    });
+
+    // Initialize the chart
+    const ctx = document.getElementById('flowChart').getContext('2d');
+    chart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: ['RESOURCEFUL', 'VIBRATIONAL', 'SUBJECTIVE', 'IMPACTFUL', 'COLLECTIVE IMPACTFUL', 'COMMUNITY IMPACTFUL', 'EVOLUTION IMPACTFUL'],
+        datasets: [{
+          label: 'Flow Progress',
+          data: [0, 0, 0, 0, 0, 0, 0],
+          backgroundColor: 'rgba(100, 181, 246, 0.2)',
+          borderColor: 'rgb(100, 181, 246)',
+          pointBackgroundColor: 'rgb(100, 181, 246)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgb(100, 181, 246)'
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          r: {
+            angleLines: {
+              display: false
+            },
+            suggestedMin: 0,
+            suggestedMax: 100
+          }
+        }
+      }
+    });
+
+    updateTriangle();
   });
-});
 </script>
