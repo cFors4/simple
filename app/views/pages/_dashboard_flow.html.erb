@@ -5,16 +5,23 @@
   <h3>Graph of Inputs</h3>
   <p>A 7 layered triangle each with 3 dimensions of flow.</p>
   
+  <div class="overarching-flow-goal">
+    <h4>Overarching Flow Goal</h4>
+    <input type="text" id="flowGoal" placeholder="Enter your overarching flow goal here">
+    <button onclick="saveFlowGoal()">Save Goal</button>
+    <p id="currentFlowGoal"></p>
+  </div>
+  
   <div class="flow-triangle-container">
     <div id="flowPercentage" class="flow-percentage">0%</div>
     <svg width="200" height="200" viewBox="0 0 200 200">
       <polygon id="flowTriangle" points="100,10 10,190 190,190" fill="none" stroke="#444" stroke-width="10" />
-      <polygon id="progressTriangle" points="100,190 100,190 100,190" fill="#64b5f6" stroke="none" />
+      <polygon id="progressTriangle" points="100,10 100,10 100,10" fill="#64b5f6" stroke="none" />
     </svg>
   </div>
 
   <div class="flow-heuristics-container">
-    <h4>Flow Categories</h4>
+    <h4>Flow Categories - Low order to High order - How actualised is your Energy and Impact?</h4>
     <div class="flow-heuristics-grid">
       <div class="flow-heuristic">
         <h4>RESOURCEFUL</h4>
@@ -156,6 +163,41 @@
   }
   body.form-open {
     padding-bottom: 300px; /* Adjust based on your form height */
+  }
+  .overarching-flow-goal {
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+  }
+  .overarching-flow-goal h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+  .overarching-flow-goal input[type="text"] {
+    width: calc(100% - 110px);
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background-color: #1e1e1e;
+    color: #ffffff;
+  }
+  .overarching-flow-goal button {
+    background-color: #64b5f6;
+    color: #000000;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+  }
+  .overarching-flow-goal button:hover {
+    background-color: #90caf9;
+  }
+  .overarching-flow-goal p {
+    margin-top: 10px;
+    margin-bottom: 0;
   }
   .full-width {
     width: 100%;

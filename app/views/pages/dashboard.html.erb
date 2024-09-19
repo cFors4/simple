@@ -109,82 +109,6 @@
       });
     });
 
-    // Flow chart
-    const ctx = document.getElementById('flowChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Work', 'Personal', 'Health', 'Other'],
-        datasets: [{
-          label: 'Number of Flows',
-          data: [0, 0, 0, 0],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(153, 102, 255, 0.2)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-
-    // Form handling
-    const addFlowButton = document.querySelector('.add-flow-button');
-    const flowForm = document.querySelector('.flow-form');
-    const closeFormButton = document.querySelector('.close-form');
-
-    function showForm() {
-      flowForm.classList.add('show');
-      document.body.insertAdjacentHTML('beforeend', '<div class="flow-form-overlay"></div>');
-      setTimeout(() => {
-        document.querySelector('.flow-form-overlay').classList.add('show');
-      }, 10);
-      document.addEventListener('click', handleOutsideClick);
-    }
-
-    function hideForm() {
-      flowForm.classList.remove('show');
-      const overlay = document.querySelector('.flow-form-overlay');
-      if (overlay) {
-        overlay.classList.remove('show');
-        setTimeout(() => {
-          overlay.remove();
-        }, 300);
-      }
-      document.removeEventListener('click', handleOutsideClick);
-    }
-
-    function handleOutsideClick(event) {
-      if (!flowForm.contains(event.target) && !addFlowButton.contains(event.target)) {
-        hideForm();
-      }
-    }
-
-    addFlowButton.addEventListener('click', function(event) {
-      event.stopPropagation();
-      showForm();
-    });
-
-    closeFormButton.addEventListener('click', hideForm);
-
-    flowForm.addEventListener('click', function(event) {
-      event.stopPropagation();
-    });
-
     // Function to update percentages (placeholder)
     function updatePercentages() {
       const overallPercentage = document.getElementById('overallPercentage');
@@ -201,7 +125,101 @@
 
     // Update percentages on page load (for demonstration)
     updatePercentages();
+
+    // Initialize flow and be dashboard states
+    initializeFlowDashboard();
+    initializeBeDashboard();
   });
+
+  function initializeFlowDashboard() {
+    const flowHeuristics = document.querySelectorAll('#flow .flow-heuristic input');
+    const flowPercentage = document.getElementById('flowPercentage');
+    const progressTriangle = document.getElementById('progressTriangle');
+    const vibrantPercentage = document.getElementById('vibrantPercentage');
+    const priorityPercentage = document.getElementById('priorityPercentage');
+    const bottleneckPercentage = document.getElementById('bottleneckPercentage');
+
+    function updateFlowDashboard() {
+      let total = 0;
+      flowHeuristics.forEach((heuristic, index) => {
+        total += parseInt(heuristic.value);
+        heuristic.nextElementSibling.textContent = heuristic.value + '%';
+      });
+      const average = total / flowHeuristics.length;
+      flowPercentage.textContent = Math.round(average) + '%';
+
+      // Update the triangle
+      const height = 180 * (average / 100);
+      progressTriangle.setAttribute('points', `100,10 ${100 - height / 2},${10 + height} ${100 + height / 2},${10 + height}`);
+
+      // Update other metrics
+      vibrantPercentage.textContent = Math.round(average);
+      priorityPercentage.textContent = Math.round(Math.random() * 100);
+      bottleneckPercentage.textContent = Math.round(Math.random() * 100);
+    }
+
+    flowHeuristics.forEach(heuristic => {
+      heuristic.addEventListener('input', updateFlowDashboard);
+    });
+
+    updateFlowDashboard();
+
+    // Flow Goal functionality
+    const flowGoalInput = document.getElementById('flowGoal');
+    const currentFlowGoal = document.getElementById('currentFlowGoal');
+    const saveGoalButton = document.querySelector('#flow button');
+
+    function saveFlowGoal() {
+      const goal = flowGoalInput.value;
+      if (goal) {
+        currentFlowGoal.textContent = `Current Goal: ${goal}`;
+        localStorage.setItem('flowGoal', goal);
+      }
+    }
+
+    // Load saved goal on page load
+    const savedGoal = localStorage.getItem('flowGoal');
+    if (savedGoal) {
+      currentFlowGoal.textContent = `Current Goal: ${savedGoal}`;
+    }
+
+    saveGoalButton.addEventListener('click', saveFlowGoal);
+  }
+
+  function initializeBeDashboard() {
+    const beHeuristics = document.querySelectorAll('#be .heuristic input');
+    const centerPercentage = document.getElementById('centerPercentage');
+    const progressCircle = document.getElementById('progressCircle');
+    const centeredPercentage = document.getElementById('centeredPercentage');
+    const realisedPercentage = document.getElementById('realisedPercentage');
+    const mindfulnessPercentage = document.getElementById('mindfulnessPercentage');
+
+    function updateBeDashboard() {
+      let total = 0;
+      beHeuristics.forEach((heuristic, index) => {
+        total += parseInt(heuristic.value);
+        heuristic.nextElementSibling.textContent = heuristic.value + '%';
+      });
+      const average = total / beHeuristics.length;
+      centerPercentage.textContent = Math.round(average) + '%';
+
+      // Update the circle
+      const circumference = 2 * Math.PI * 90;
+      const offset = circumference - (average / 100) * circumference;
+      progressCircle.style.strokeDashoffset = offset;
+
+      // Update other metrics
+      centeredPercentage.textContent = Math.round(average);
+      realisedPercentage.textContent = Math.round(Math.random() * 100);
+      mindfulnessPercentage.textContent = Math.round((total / (beHeuristics.length * 100)) * 100);
+    }
+
+    beHeuristics.forEach(heuristic => {
+      heuristic.addEventListener('input', updateBeDashboard);
+    });
+
+    updateBeDashboard();
+  }
 </script>
 
 <style>

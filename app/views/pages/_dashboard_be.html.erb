@@ -135,8 +135,9 @@
   <div id="metrics" class="dashboard-section metrics">
     <h3>Throughput Metrics for Be</h3>
     <ul>
-      <li>Centered: %</li>
-      <li>Realised: %</li>
+      <li>Centered: <span id="centeredPercentage">0</span>%</li>
+      <li>Realised: <span id="realisedPercentage">0</span>%</li>
+      <li>Mindfulness: <span id="mindfulnessPercentage">0</span>%</li>
     </ul>
   </div>
 </div>
@@ -211,86 +212,3 @@
   }
 </style>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const flowPercentage = document.getElementById('flowPercentage');
-    const progressTriangle = document.getElementById('progressTriangle');
-    const heuristics = document.querySelectorAll('.flow-heuristic input');
-    const heuristicValues = document.querySelectorAll('.heuristic-value');
-    const vibrantPercentage = document.getElementById('vibrantPercentage');
-    const priorityPercentage = document.getElementById('priorityPercentage');
-    const bottleneckPercentage = document.getElementById('bottleneckPercentage');
-    let chart;
-
-    function updateTriangle() {
-      let total = 0;
-      heuristics.forEach((heuristic, index) => {
-        total += parseInt(heuristic.value);
-        heuristicValues[index].textContent = heuristic.value + '%';
-      });
-      const average = total / heuristics.length;
-      flowPercentage.textContent = Math.round(average) + '%';
-
-      // Update the triangle
-      const height = 180 * (average / 100);
-      const baseWidth = 180 * (average / 100);
-      const leftX = 100 - baseWidth / 2;
-      const rightX = 100 + baseWidth / 2;
-      const points = `100,${190 - height} ${leftX},190 ${rightX},190`;
-      progressTriangle.setAttribute('points', points);
-
-      // Update other metrics
-      vibrantPercentage.textContent = Math.round(Math.random() * 100);
-      priorityPercentage.textContent = Math.round(Math.random() * 100);
-      bottleneckPercentage.textContent = Math.round(Math.random() * 100);
-
-      // Update the chart
-      updateChart();
-    }
-
-    function updateChart() {
-      if (chart) {
-        const newData = Array.from(heuristics).map(heuristic => parseInt(heuristic.value));
-        chart.data.datasets[0].data = newData;
-        chart.update();
-      }
-    }
-
-    heuristics.forEach(heuristic => {
-      heuristic.addEventListener('input', updateTriangle);
-    });
-
-    // Initialize the chart
-    const ctx = document.getElementById('flowChart').getContext('2d');
-    chart = new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: ['RESOURCEFUL', 'VIBRATIONAL', 'SUBJECTIVE', 'IMPACTFUL', 'COLLECTIVE IMPACTFUL', 'COMMUNITY IMPACTFUL', 'EVOLUTION IMPACTFUL'],
-        datasets: [{
-          label: 'Flow Progress',
-          data: [0, 0, 0, 0, 0, 0, 0],
-          backgroundColor: 'rgba(100, 181, 246, 0.2)',
-          borderColor: 'rgb(100, 181, 246)',
-          pointBackgroundColor: 'rgb(100, 181, 246)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgb(100, 181, 246)'
-        }]
-      },
-      options: {
-        responsive: true,
-        scales: {
-          r: {
-            angleLines: {
-              display: false
-            },
-            suggestedMin: 0,
-            suggestedMax: 100
-          }
-        }
-      }
-    });
-
-    updateTriangle();
-  });
-</script>
