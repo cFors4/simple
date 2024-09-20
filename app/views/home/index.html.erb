@@ -197,6 +197,11 @@
 </head>
 <body>
   <div class="container">
+    <header>
+      <div class="header-content">
+        <h1>Connor Forsyth</h1>
+      </div>
+    </header>
 
     <main>
       <section id="who-am-i" class="section">
@@ -268,7 +273,8 @@
       <section id="documentation" class="section">
         <h2>Public Documentation</h2>
         <div class="links">
-          <a href="/theory-of-everything">Theory of Everything</a>
+          <a href="/toe">Theory of Everything</a>
+          <a href="/dash">Aware-Agency Dashboard</a>
           <%# <a href="/flow">Flow</a>
           <a href="/engineer">Engineer</a>
           <a href="/become">Become</a>
@@ -297,17 +303,6 @@
   </div>
 
   <script>
-    function toggleMenu() {
-      const nav = document.getElementById('main-nav');
-      nav.style.display = nav.style.display === 'none' || nav.style.display === '' ? 'block' : 'none';
-    }
-
-    // Ensure the menu is collapsed on page load for all devices
-    document.addEventListener('DOMContentLoaded', function() {
-      const nav = document.getElementById('main-nav');
-      nav.style.display = 'none';
-    });
-
     function copyBitcoinAddress(e) {
       e.preventDefault();
       const bitcoinAddress = 'bc1qhv8ywesrym9q6dm88q47fnh9vjyqzaflsfr9s9';
@@ -318,35 +313,16 @@
       });
     }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
         });
       });
     });
-
-    function setActiveMenuItem() {
-      const sections = document.querySelectorAll('section');
-      const navItems = document.querySelectorAll('nav ul li a');
-
-      sections.forEach(section => {
-        const rect = section.getBoundingClientRect();
-        if (rect.top <= 150 && rect.bottom >= 150) {
-          const id = section.getAttribute('id');
-          navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${id}`) {
-              item.classList.add('active');
-            }
-          });
-        }
-      });
-    }
-
-    window.addEventListener('scroll', setActiveMenuItem);
-    window.addEventListener('load', setActiveMenuItem);
   </script>
 </body>
 </html>

@@ -35,7 +35,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  let isInitialized = false;
+
+  function initializeDashboard() {
+    if (isInitialized) return;
+    isInitialized = true;
+
     const tabs = document.querySelectorAll('.dashboard-tabs li');
     const tabContents = document.querySelectorAll('.tab-content');
     const prevButton = document.getElementById('prevTab');
@@ -109,7 +114,7 @@
     // Initialize flow and be dashboard states
     initializeFlowDashboard();
     initializeBeDashboard();
-  });
+  }
 
   function getHeaderOffset() {
     const header = document.querySelector('.dashboard-tabs');
@@ -149,14 +154,17 @@
     tabIds.forEach(tabId => initializeSideMenu(tabId));
   }
 
-  // Call initializeAllSideMenus when the page loads
-  document.addEventListener('DOMContentLoaded', initializeAllSideMenus);
+  // Call initializeDashboard when the page loads
+  document.addEventListener('DOMContentLoaded', initializeDashboard);
 
   // Re-initialize side menus when switching tabs
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      const tabId = this.getAttribute('data-tab');
-      initializeSideMenu(tabId);
+  document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.dashboard-tabs li');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        const tabId = this.getAttribute('data-tab');
+        initializeSideMenu(tabId);
+      });
     });
   });
 
