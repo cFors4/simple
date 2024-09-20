@@ -1,0 +1,66 @@
+<div class="floating-side-menu">
+  <ul>
+    <li><a href="#graph">Graph of Inputs</a></li>
+    <li><a href="#model">Model</a></li>
+    <li><a href="#analogy">Analogy</a></li>
+    <li><a href="#equation">Equation</a></li>
+    <li><a href="#metrics">Metrics</a></li>
+    <li><a href="#practice">Practice</a></li>
+  </ul>
+</div>
+
+<style>
+  .floating-side-menu {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: rgba(44, 44, 44, 0.8);
+    border-radius: 8px;
+    padding: 10px;
+    z-index: 1000;
+    max-width: 150px;
+  }
+
+  .floating-side-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .floating-side-menu li {
+    margin-bottom: 10px;
+  }
+
+  .floating-side-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    display: block;
+  }
+
+  .floating-side-menu a:hover {
+    color: #64b5f6;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const menuLinks = document.querySelectorAll('.floating-side-menu a');
+
+  menuLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        targetElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    });
+  });
+});
+</script>

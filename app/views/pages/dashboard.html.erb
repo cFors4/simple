@@ -48,6 +48,7 @@
         if (index === currentTabIndex) {
           tab.classList.add('active');
           tabContents[index].classList.add('active');
+          initializeSideMenu(tab.getAttribute('data-tab'));
         } else {
           tab.classList.remove('active');
           tabContents[index].classList.remove('active');
@@ -108,6 +109,55 @@
     // Initialize flow and be dashboard states
     initializeFlowDashboard();
     initializeBeDashboard();
+  });
+
+  function getHeaderOffset() {
+    const header = document.querySelector('.dashboard-tabs');
+    return header ? header.offsetHeight : 0;
+  }
+
+  function initializeSideMenu(tabId) {
+    console.log(`Initializing side menu for ${tabId}...`);
+    const tabContent = document.getElementById(tabId);
+    const menuLinks = tabContent.querySelectorAll('.floating-side-menu a');
+    console.log('Number of menu links:', menuLinks.length);
+    menuLinks.forEach(link => {
+      console.log('Link href:', link.getAttribute('href'));
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = tabContent.querySelector(`#${targetId}`);
+        if (targetElement) {
+          console.log('Scrolling to:', targetId);
+          const headerOffset = getHeaderOffset();
+          const elementPosition = targetElement.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          console.log('Target element not found:', targetId);
+        }
+      });
+    });
+  }
+
+  function initializeAllSideMenus() {
+    const tabIds = ['aware-agency', 'flow', 'build', 'become', 'be'];
+    tabIds.forEach(tabId => initializeSideMenu(tabId));
+  }
+
+  // Call initializeAllSideMenus when the page loads
+  document.addEventListener('DOMContentLoaded', initializeAllSideMenus);
+
+  // Re-initialize side menus when switching tabs
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const tabId = this.getAttribute('data-tab');
+      initializeSideMenu(tabId);
+    });
   });
 
   function initializeFlowDashboard() {
