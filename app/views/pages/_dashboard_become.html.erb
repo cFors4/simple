@@ -10,14 +10,165 @@
     color: #ffffff;
   }
   
-  /* Other existing styles */
+  .input-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+  }
+  
+  .slider-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 18%;
+  }
+  
+  .slider-container label {
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  
+  .slider-container input[type="range"] {
+    -webkit-appearance: slider-vertical;
+    width: 20px;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+    writing-mode: bt-lr;
+  }
+  
+  .consciousness-levels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    margin-right: 10px;
+  }
+  
+  .consciousness-level {
+    font-size: 12px;
+    white-space: nowrap;
+    height: 17.6px;
+    display: flex;
+    align-items: center;
+  }
+  
+  #becomeGraph {
+    width: 100%;
+    height: 300px;
+  }
 </style>
 
 <div id="graph" class="dashboard-section graph">
   <h3>Graph of Inputs</h3>
+  <div class="overarching-become-goal">
+    <p id="currentLoC">Current Level of Consciousness: <span id="currentLoCValue">20</span></p>
+  </div>
   <p>Level of consciousness over time, self documented and current</p>
-  <div id="becomeGraph"></div>
+  
+  <div class="input-section">
+    <div class="consciousness-levels" style="margin-top: 60px;">
+      <% ['Enlightenment (70-100)', 'Peace (60-70)', 'Joy (54-60)', 'Love (50-54)', 'Reason (40-50)', 'Acceptance (35-40)', 'Willingness (31-35)', 'Neutrality (25-31)', 'Courage (20-25)', 'Pride (17.5-20)', 'Anger (15-17.5)', 'Desire (12.5-15)', 'Fear (10-12.5)', 'Grief (7.5-10)', 'Apathy (5-7.5)', 'Guilt (3-5)', 'Shame (0-3)'].each do |level| %>
+        <div class="consciousness-level"><%= level %></div>
+      <% end %>
+    </div>
+    
+    <% 5.times do |i| %>
+      <div class="slider-container">
+        <label for="input<%= i+1 %>"><%= i == 4 ? 'Current' : "#{4-i} Year#{4-i > 1 ? 's' : ''} Ago" %></label>
+        <span class="slider-value" id="value<%= i+1 %>">20%</span>
+        <input type="range" id="input<%= i+1 %>" min="0" max="100" value="20" orient="vertical" oninput="updateSliderValue(<%= i+1 %>, this.value)">
+      </div>
+    <% end %>
+  </div>
+
+  <canvas id="becomeGraph"></canvas>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const ctx = document.getElementById('becomeGraph').getContext('2d');
+  const currentYear = new Date().getFullYear();
+  const years = [currentYear - 4, currentYear - 3, currentYear - 2, currentYear - 1, currentYear];
+  let inputValues = [20, 20, 20, 20, 20];
+
+  const consciousnessLevels = [
+    { level: 'Shame', value: 2 },
+    { level: 'Guilt', value: 3 },
+    { level: 'Apathy', value: 5 },
+    { level: 'Grief', value: 7.5 },
+    { level: 'Fear', value: 10 },
+    { level: 'Desire', value: 12.5 },
+    { level: 'Anger', value: 15 },
+    { level: 'Pride', value: 17.5 },
+    { level: 'Courage', value: 20 },
+    { level: 'Neutrality', value: 25 },
+    { level: 'Willingness', value: 31 },
+    { level: 'Acceptance', value: 35 },
+    { level: 'Reason', value: 40 },
+    { level: 'Love', value: 50 },
+    { level: 'Joy', value: 54 },
+    { level: 'Peace', value: 60 },
+    { level: 'Enlightenment', value: 70 }
+  ];
+
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'Level of Consciousness',
+        data: inputValues,
+        borderColor: 'rgb(75, 192, 192)',
+        tension: 0.1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100,
+          title: {
+            display: true,
+            text: 'Level of Consciousness'
+          },
+          ticks: {
+            callback: function(value, index, values) {
+              const level = consciousnessLevels.find(l => l.value === value);
+              return level ? level.level : '';
+            }
+          }
+        },
+        x: {
+          title: {
+            display: true,
+            text: 'Year'
+          }
+        }
+      }
+    }
+  });
+
+  function updateChart() {
+    inputValues = years.map((_, index) => parseFloat(document.getElementById(`input${index + 1}`).value) || 0);
+    chart.data.datasets[0].data = inputValues;
+    chart.update();
+  }
+
+  years.forEach((_, index) => {
+    document.getElementById(`input${index + 1}`).addEventListener('input', updateChart);
+  });
+});
+
+function updateSliderValue(index, value) {
+  document.getElementById(`value${index}`).textContent = value + '%';
+  if (index === 5) {  // If it's the current year slider
+    document.getElementById('currentLoCValue').textContent = value;
+  }
+}
+</script>
 
 <div id="practice" class="dashboard-section practice">
   <h3>Practice</h3>
@@ -46,31 +197,3 @@
     <li>Dualities to transcend: %</li>
   </ul>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Placeholder for graph initialization
-  // Replace with actual graph implementation
-  const ctx = document.getElementById('becomeGraph').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-      datasets: [{
-        label: 'Become Progress',
-        data: [5, 10, 15, 20, 25, 30],
-        borderColor: 'rgb(255, 99, 132)',
-        tension: 0.1
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-});
-</script>
