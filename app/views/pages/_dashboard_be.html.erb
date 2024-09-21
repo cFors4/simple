@@ -2,7 +2,7 @@
 
 <%= render 'shared/side_menu' %>
 
-<div id="graph" class="dashboard-section graph full-width">
+<div id="graph" class="dashboard-section graph">
   <h3>Graph of Inputs</h3>
   <p>7 categories of self-discovery and centeredness.</p>
   
@@ -16,19 +16,19 @@
   </div>
 
   <div class="heuristics-container">
-    <h4>Centeredness Categories</h4>
+    <h4>Centeredness Categories - which area's are you going to prioritise or that you are under actualised in?</h4>
     <div class="heuristics-grid">
       <div class="heuristic-column">
         <div class="heuristic">
           <h4>FOUNDATION</h4>
           <ul>
-            <li>Sila/Ethics</li>
-            <li>Samadhi/Concentration</li>
-            <li>Panna/Insight</li>
+            <li>Sila (Ethics)</li>
+            <li>Samadhi (Concentration)</li>
+            <li>Panna (Insight)</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic1" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic1" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
         <div class="heuristic">
@@ -39,20 +39,20 @@
             <li>Curiosity</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic2" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic2" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
         <div class="heuristic">
-          <h4>WHAT IS</h4>
+          <h4>WHOLEBEING</h4>
           <ul>
             <li>Awareness</li>
             <li>Body</li>
             <li>Mind</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic3" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic3" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
       </div>
@@ -65,8 +65,8 @@
             <li>Skillfulness</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic4" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic4" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
       </div>
@@ -75,24 +75,24 @@
           <h4>MIRROR</h4>
           <ul>
             <li>Self</li>
-            <li>Sensation</li>
-            <li>Situation</li>
+            <li>Sensations</li>
+            <li>Situations</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic5" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic5" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
         <div class="heuristic">
-          <h4>SKILL</h4>
+          <h4>PRIMARY SKILLS</h4>
           <ul>
             <li>Conscious&nbsp;Mindfulness</li>
             <li>Honed Focus</li>
             <li>Open Awareness</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic6" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic6" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
         <div class="heuristic">
@@ -103,8 +103,8 @@
             <li>Aversion</li>
           </ul>
           <div class="slider-container">
-            <input type="range" id="heuristic7" min="0" max="100" value="0">
-            <span class="heuristic-value">0%</span>
+            <input type="range" id="heuristic7" min="0" max="100" value="100">
+            <span class="heuristic-value">100%</span>
           </div>
         </div>
       </div>
@@ -112,39 +112,45 @@
   </div>
 </div>
 
-<div class="dashboard-grid">
-  <div id="model" class="dashboard-section model">
-    <h3>Model of geometry</h3>
-    <p>A nested series of traingles glowing or not as we realise our nature and peace.</p>
-  </div>
+<div id="practice" class="dashboard-section practice">
+  <h3>Practice</h3>
+  <p>Vipassana Meditation</p>
+  <a href="https://www.dhamma.org/en/schedules/schdipa">10 day Vipassana Course</a>
+</div>
 
-  <div id="practice" class="dashboard-section practice">
-    <h3>Practice</h3>
-    <p>Vipassana Meditation</p>
-    <a href="https://www.dhamma.org/en/schedules/schdipa">10 day Vipassana Course</a>
-  </div>
+<div id="analogy" class="dashboard-section analogy">
+  <h3>Analogy</h3>
+  <p>A best self eye and a series of lenses that distort our view of the world and our self. Where through the lens' we end up showing up on the earth, as our best self given our current perceptions.</p>
+</div>
 
-  <div id="analogy" class="dashboard-section analogy">
-    <h3>Analogy</h3>
-    <p>A best self eye and a series of lenses that distort our view of the world and our self. Where through the lens' we end up showing up on the earth, as our best self given our current perceptions.</p>
-  </div>
+<div id="equation" class="dashboard-section equation">
+  <h3>Equation of Mastery</h3>
+  <p>Mastery of Presence (I Am with Peace) = (Maximise Equanimous Observing + Minimise Misery) + (Process of Learning * Inner Observation * Outer Realisation)^Acceptance</p>
+</div>
 
-  <div id="equation" class="dashboard-section equation">
-    <h3>Equation of Mastery</h3>
-        <p>Mastery of Presence (I Am with Peace) = (Input Acceptance * Maximise Equanimous Observing * Minimise Misery) + (Process of Learning * Inner Observation * Outer Realisation)</p>
-  </div>
+<div id="model" class="dashboard-section model">
+  <h3>Model of geometry</h3>
+  <p>A nested series of traingles glowing or not as we realise our nature and peace.</p>
+</div>
 
-  <div id="metrics" class="dashboard-section metrics">
-    <h3>Throughput Metrics for Be</h3>
-    <ul>
-      <li>Centered: <span id="centeredPercentage">0</span>%</li>
-      <li>Realised: <span id="realisedPercentage">0</span>%</li>
-      <li>Mindfulness: <span id="mindfulnessPercentage">0</span>%</li>
-    </ul>
-  </div>
+<div id="metrics" class="dashboard-section metrics">
+  <h3>Throughput Metrics for Be</h3>
+  <ul>
+    <li>Centered: <span id="centeredPercentage">0</span>%</li>
+    <li>Realised: <span id="realisedPercentage">0</span>%</li>
+    <li>Mindfulness: <span id="mindfulnessPercentage">0</span>%</li>
+  </ul>
 </div>
 
 <style>
+  .dashboard-section {
+    background-color: #2c2c2c;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    color: #ffffff;
+  }
+  
   .full-width {
     width: 100%;
     max-width: 1200px;
@@ -213,4 +219,3 @@
     text-align: right;
   }
 </style>
-

@@ -1,16 +1,16 @@
 <div class="<%= @page_class %>">
-  <h1>MinMax Dashboard</h1>
-  
-  <nav class="dashboard-tabs">
-    <button id="prevTab" class="nav-arrow">&larr;</button>
-    <ul>
-      <li data-tab="aware-agency">Aware Agency</li>
-      <li data-tab="flow">Flow</li>
-      <li data-tab="build">Build</li>
-      <li data-tab="become">Become</li>
-      <li data-tab="be">Be</li>
-    </ul>
-    <button id="nextTab" class="nav-arrow">&rarr;</button>
+  <nav class="dashboard-tabs" id="dashboardTabs">
+    <div class="dashboard-tabs-container">
+      <button id="prevTab" class="nav-arrow">&larr;</button>
+      <ul>
+        <li data-tab="aware-agency">Aware Agency</li>
+        <li data-tab="flow">Flow</li>
+        <li data-tab="build">Build</li>
+        <li data-tab="become">Become</li>
+        <li data-tab="be">Be</li>
+      </ul>
+      <button id="nextTab" class="nav-arrow">&rarr;</button>
+    </div>
   </nav>
 
   <div class="dashboard-content">
@@ -31,7 +31,6 @@
     </div>
   </div>
 </div>
-
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -111,9 +110,10 @@
     // Update percentages on page load (for demonstration)
     updatePercentages();
 
-    // Initialize flow and be dashboard states
+    // Initialize flow, be, and build dashboard states
     initializeFlowDashboard();
     initializeBeDashboard();
+    initializeBuildDashboard();
   }
 
   function getHeaderOffset() {
@@ -257,14 +257,93 @@
 
     updateBeDashboard();
   }
+
+  function initializeBuildDashboard() {
+    const buildHeuristics = document.querySelectorAll('#build .build-diamond .diamond-square');
+    const buildOverallPercentage = document.getElementById('buildOverallPercentage');
+
+    function updateBuildDashboard() {
+      let total = 0;
+      buildHeuristics.forEach((heuristic) => {
+        const percentage = Math.floor(Math.random() * 101);
+        heuristic.querySelector('.square-percentage').textContent = `${percentage}%`;
+        total += percentage;
+      });
+      const average = Math.round(total / buildHeuristics.length);
+      buildOverallPercentage.textContent = average;
+    }
+
+    updateBuildDashboard();
+
+    // Build Goal functionality
+    const buildGoalInput = document.getElementById('buildGoal');
+    const currentBuildGoal = document.getElementById('currentBuildGoal');
+    const saveGoalButton = document.querySelector('#build .overarching-build-goal button');
+
+    function saveBuildGoal() {
+      const goal = buildGoalInput.value;
+      if (goal) {
+        currentBuildGoal.textContent = `Current Goal: ${goal}`;
+        localStorage.setItem('buildGoal', goal);
+      }
+    }
+
+    // Load saved goal on page load
+    const savedGoal = localStorage.getItem('buildGoal');
+    if (savedGoal) {
+      currentBuildGoal.textContent = `Current Goal: ${savedGoal}`;
+    }
+
+    saveGoalButton.addEventListener('click', saveBuildGoal);
+  }
+
+  // Add this new function to handle the floating tab bar
+  function initFloatingTabBar() {
+    const tabBar = document.getElementById('dashboardTabs');
+    const tabBarOffset = tabBar.offsetTop;
+    const headerHeight = 60; // Adjust this value based on your application header height
+
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset >= tabBarOffset - headerHeight) {
+        tabBar.classList.add('floating');
+        document.body.style.paddingTop = `${tabBar.offsetHeight + 10}px`; // Added 10px for spacing
+      } else {
+        tabBar.classList.remove('floating');
+        document.body.style.paddingTop = '0';
+      }
+    });
+  }
+
+  // Call the new function when the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    initializeDashboard();
+    initFloatingTabBar();
+  });
 </script>
 
 <style>
+  body {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
   .dashboard-tabs {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    background-color: #1e1e1e;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+    width: 100%;
+    z-index: 999;
+  }
+
+  .dashboard-tabs.floating {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    right: 0;
   }
 
   .dashboard-tabs ul {
@@ -272,6 +351,7 @@
     list-style-type: none;
     padding: 0;
     margin: 0;
+    justify-content: center;
   }
 
   .dashboard-tabs li {
@@ -354,22 +434,22 @@
   .overall-percentage {
     text-align: center;
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
 
   .diamond-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    gap: 60px; /* Increased from 40px to 60px */
-    width: 400px; /* Increased from 340px to accommodate the larger gap */
-    height: 400px; /* Increased from 340px to accommodate the larger gap */
-    margin: 40px auto;
+    gap: 40px;
+    width: 360px;
+    height: 360px;
+    margin: 20px auto;
   }
 
   .diamond-square {
-    width: 140px; /* Decreased from 150px */
-    height: 140px; /* Decreased from 150px */
+    width: 140px;
+    height: 140px;
     background-color: #2c2c2c;
     display: flex;
     flex-direction: column;
@@ -381,28 +461,28 @@
     color: #ffffff;
   }
 
-  .diamond-square:nth-child(1) { /* Flow */
+  .diamond-square:nth-child(1) {
     grid-column: 1 / 3;
     grid-row: 1 / 2;
     justify-self: center;
     align-self: start;
   }
 
-  .diamond-square:nth-child(2) { /* Build */
+  .diamond-square:nth-child(2) {
     grid-column: 2 / 3;
     grid-row: 1 / 3;
     justify-self: end;
     align-self: center;
   }
 
-  .diamond-square:nth-child(3) { /* Become */
+  .diamond-square:nth-child(3) {
     grid-column: 1 / 3;
     grid-row: 2 / 3;
     justify-self: center;
     align-self: end;
   }
 
-  .diamond-square:nth-child(4) { /* Be */
+  .diamond-square:nth-child(4) {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
     justify-self: start;
@@ -417,11 +497,11 @@
   .square-title {
     font-weight: bold;
     margin-bottom: 5px;
-    font-size: 0.8rem; /* Decreased from 0.9rem */
+    font-size: 0.8rem;
   }
 
   .square-percentage {
-    font-size: 1.1rem; /* Decreased from 1.2rem */
+    font-size: 1.1rem;
   }
 
   .ceim-image {
@@ -429,5 +509,37 @@
     max-width: 100%;
     height: auto;
     margin: 20px auto;
+  }
+
+  .dashboard-content {
+    background-color: #000000;
+    color: #ffffff;
+    padding-top: 10px;
+  }
+
+  .dashboard-section {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    color: #ffffff;
+  }
+
+  .dashboard-tabs-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .dashboard-tabs ul {
+    flex: 1;
+    max-width: 600px;
+  }
+
+  .dashboard-section, .graph {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 </style>
