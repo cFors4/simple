@@ -3,11 +3,26 @@
     <div class="dashboard-tabs-container">
       <button id="prevTab" class="nav-arrow">&larr;</button>
       <ul>
-        <li data-tab="aware-agency">Aware Agency</li>
-        <li data-tab="flow">Flow</li>
-        <li data-tab="build">Build</li>
-        <li data-tab="become">Become</li>
-        <li data-tab="be">Be</li>
+        <li data-tab="aware-agency">
+          <span class="tab-text">Aware Agency</span>
+          <i class="fas fa-compass tab-icon"></i>
+        </li>
+        <li data-tab="flow">
+          <span class="tab-text">Flow</span>
+          <i class="fas fa-water tab-icon"></i>
+        </li>
+        <li data-tab="build">
+          <span class="tab-text">Build</span>
+          <i class="fas fa-hammer tab-icon"></i>
+        </li>
+        <li data-tab="become">
+          <span class="tab-text">Become</span>
+          <i class="fas fa-heart tab-icon"></i>
+        </li>
+        <li data-tab="be">
+          <span class="tab-text">Be</span>
+          <i class="fas fa-om tab-icon"></i>
+        </li>
       </ul>
       <button id="nextTab" class="nav-arrow">&rarr;</button>
     </div>
@@ -303,15 +318,30 @@
     const tabBarOffset = tabBar.offsetTop;
     const headerHeight = 60; // Adjust this value based on your application header height
 
-    window.addEventListener('scroll', () => {
-      if (window.pageYOffset >= tabBarOffset - headerHeight) {
+    function updateTabBarPosition() {
+      if (window.innerWidth <= 768) {
         tabBar.classList.add('floating');
-        document.body.style.paddingTop = `${tabBar.offsetHeight + 10}px`; // Added 10px for spacing
+        document.body.style.paddingBottom = `${tabBar.offsetHeight}px`;
+        tabBar.style.top = 'auto';
+        tabBar.style.bottom = '0';
       } else {
-        tabBar.classList.remove('floating');
-        document.body.style.paddingTop = '0';
+        if (window.pageYOffset >= tabBarOffset - headerHeight) {
+          tabBar.classList.add('floating');
+          tabBar.style.top = `${headerHeight}px`;
+          tabBar.style.bottom = 'auto';
+          document.body.style.paddingTop = `${tabBar.offsetHeight + 10}px`;
+        } else {
+          tabBar.classList.remove('floating');
+          tabBar.style.top = 'auto';
+          tabBar.style.bottom = 'auto';
+          document.body.style.paddingTop = '0';
+        }
       }
-    });
+    }
+
+    window.addEventListener('scroll', updateTabBarPosition);
+    window.addEventListener('resize', updateTabBarPosition);
+    updateTabBarPosition(); // Initial call to set correct position
   }
 
   // Call the new function when the DOM is loaded
@@ -346,12 +376,21 @@
     right: 0;
   }
 
+  .dashboard-tabs-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+  }
+
   .dashboard-tabs ul {
     display: flex;
     list-style-type: none;
     padding: 0;
     margin: 0;
     justify-content: center;
+    flex: 1;
   }
 
   .dashboard-tabs li {
@@ -360,6 +399,9 @@
     cursor: pointer;
     border-bottom: 2px solid transparent;
     color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .dashboard-tabs li.active {
@@ -373,6 +415,12 @@
     cursor: pointer;
     padding: 0 10px;
     color: #ffffff;
+  }
+
+  .tab-icon {
+    display: none;
+    font-size: 24px;
+    margin-bottom: 5px;
   }
 
   .tab-content {
@@ -541,5 +589,76 @@
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    .dashboard-tabs {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      top: auto;
+      margin-bottom: 0;
+      padding: 5px 0;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      background-color: #1e1e1e;
+    }
+
+    .dashboard-tabs-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .dashboard-tabs ul {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      flex: 1;
+    }
+
+    .dashboard-tabs li {
+      margin: 0;
+      padding: 5px;
+      flex: 1;
+      text-align: center;
+      border-bottom: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tab-text {
+      display: none;
+    }
+
+    .tab-icon {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 0;
+    }
+
+    .dashboard-tabs li.active {
+      border-bottom: none;
+      color: #64b5f6;
+    }
+
+    body {
+      padding-bottom: 60px;
+    }
+
+    .dashboard-content {
+      margin-bottom: 60px;
+    }
+
+    .nav-arrow {
+      display: block; // Keep navigation arrows visible on mobile
+      font-size: 18px;
+      padding: 0 10px;
+    }
   }
 </style>
