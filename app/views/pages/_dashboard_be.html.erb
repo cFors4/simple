@@ -27,8 +27,8 @@
             <li>Panna (Insight)</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic1" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic1" min="0" max="100" value="100" oninput="updateSlider(1, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue1">100%</span>
           </div>
         </div>
         <div class="heuristic">
@@ -39,8 +39,8 @@
             <li>Curiosity</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic2" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic2" min="0" max="100" value="100" oninput="updateSlider(2, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue2">100%</span>
           </div>
         </div>
         <div class="heuristic">
@@ -51,8 +51,8 @@
             <li>Mind</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic3" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic3" min="0" max="100" value="100" oninput="updateSlider(3, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue3">100%</span>
           </div>
         </div>
       </div>
@@ -65,8 +65,8 @@
             <li>Skillfulness</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic4" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic4" min="0" max="100" value="100" oninput="updateSlider(4, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue4">100%</span>
           </div>
         </div>
       </div>
@@ -79,8 +79,8 @@
             <li>Situations</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic5" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic5" min="0" max="100" value="100" oninput="updateSlider(5, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue5">100%</span>
           </div>
         </div>
         <div class="heuristic">
@@ -91,8 +91,8 @@
             <li>Open Awareness</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic6" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic6" min="0" max="100" value="100" oninput="updateSlider(6, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue6">100%</span>
           </div>
         </div>
         <div class="heuristic">
@@ -103,8 +103,8 @@
             <li>Aversion</li>
           </ul>
           <div class="be-slider-container">
-            <input type="range" id="heuristic7" min="0" max="100" value="100">
-            <span class="be-heuristic-value">100%</span>
+            <input type="range" id="heuristic7" min="0" max="100" value="100" oninput="updateSlider(7, this.value)">
+            <span class="be-heuristic-value" id="heuristicValue7">100%</span>
           </div>
         </div>
       </div>
@@ -121,6 +121,7 @@
 <div id="analogy" class="dashboard-section analogy">
   <h3>Analogy</h3>
   <p>A best self eye and a series of lenses that distort our view of the world and our self. Where through the lens' we end up showing up on the earth, as our best self given our current perceptions.</p>
+  <%= image_tag 'observe.jpeg', alt: 'Observation Analogy', class: 'analogy-image' %>
 </div>
 
 <div id="equation" class="dashboard-section equation">
@@ -131,7 +132,7 @@
 <div id="model" class="dashboard-section model">
   <h3>Model of geometry</h3>
   <p>A nested series of traingles glowing or not as we realise our nature and peace.</p>
-  <%= image_tag 'beModel.png', alt: 'Be Model', class: 'model-image' %>
+  <%= image_tag 'tri.jpeg', alt: 'Be Model', class: 'model-image' %>
 </div>
 
 <div id="metrics" class="dashboard-section metrics">
@@ -224,3 +225,30 @@
     text-align: right;
   }
 </style>
+
+<script>
+function updateSlider(id, value) {
+  document.getElementById(`heuristicValue${id}`).textContent = `${value}%`;
+  updateCircle();
+}
+
+function updateCircle() {
+  const sliders = document.querySelectorAll('.be-slider-container input[type="range"]');
+  let total = 0;
+  sliders.forEach(slider => {
+    total += parseInt(slider.value);
+  });
+  const average = total / sliders.length;
+  
+  const centerPercentage = document.getElementById('centerPercentage');
+  centerPercentage.textContent = `${Math.round(average)}%`;
+  
+  const progressCircle = document.getElementById('progressCircle');
+  const circumference = 2 * Math.PI * 90;
+  const offset = circumference - (average / 100) * circumference;
+  progressCircle.style.strokeDashoffset = offset;
+}
+
+// Initialize the circle
+updateCircle();
+</script>

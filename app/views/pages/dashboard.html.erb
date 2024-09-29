@@ -242,13 +242,10 @@
     const beHeuristics = document.querySelectorAll('#be .heuristic input');
     const centerPercentage = document.getElementById('centerPercentage');
     const progressCircle = document.getElementById('progressCircle');
-    const centeredPercentage = document.getElementById('centeredPercentage');
-    const realisedPercentage = document.getElementById('realisedPercentage');
-    const mindfulnessPercentage = document.getElementById('mindfulnessPercentage');
 
     function updateBeDashboard() {
       let total = 0;
-      beHeuristics.forEach((heuristic, index) => {
+      beHeuristics.forEach((heuristic) => {
         total += parseInt(heuristic.value);
         heuristic.nextElementSibling.textContent = heuristic.value + '%';
       });
@@ -258,12 +255,17 @@
       // Update the circle
       const circumference = 2 * Math.PI * 90;
       const offset = circumference - (average / 100) * circumference;
+      progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
       progressCircle.style.strokeDashoffset = offset;
 
-      // Update other metrics
-      centeredPercentage.textContent = Math.round(average);
-      realisedPercentage.textContent = Math.round(Math.random() * 100);
-      mindfulnessPercentage.textContent = Math.round((total / (beHeuristics.length * 100)) * 100);
+      // Update other metrics in the metrics section
+      const investmentRatio = document.getElementById('investmentRatio');
+      const operationalEfficiency = document.getElementById('operationalEfficiency');
+      const observationMoments = document.getElementById('observationMoments');
+
+      if (investmentRatio) investmentRatio.textContent = (average / 100).toFixed(1);
+      if (operationalEfficiency) operationalEfficiency.textContent = Math.round(average);
+      if (observationMoments) observationMoments.textContent = Math.round(average * 10);
     }
 
     beHeuristics.forEach(heuristic => {
