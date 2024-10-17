@@ -327,11 +327,11 @@
         tabBar.style.top = 'auto';
         tabBar.style.bottom = '0';
       } else {
-        if (window.pageYOffset >= tabBarOffset - headerHeight) {
+        if (window.pageYOffset > tabBarOffset - headerHeight) {
           tabBar.classList.add('floating');
           tabBar.style.top = `${headerHeight}px`;
           tabBar.style.bottom = 'auto';
-          document.body.style.paddingTop = `${tabBar.offsetHeight + 10}px`;
+          document.body.style.paddingTop = `${tabBar.offsetHeight}px`;
         } else {
           tabBar.classList.remove('floating');
           tabBar.style.top = 'auto';
@@ -604,6 +604,7 @@
       padding: 5px 0;
       box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
       background-color: #1e1e1e;
+      height: 50px; /* Doubled the height */
     }
 
     .dashboard-tabs-container {
@@ -611,6 +612,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      height: 100%; /* Make sure the container takes full height */
     }
 
     .dashboard-tabs ul {
@@ -621,6 +623,7 @@
       padding: 0;
       margin: 0;
       flex: 1;
+      height: 100%; /* Make sure the ul takes full height */
     }
 
     .dashboard-tabs li {
@@ -632,6 +635,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center; /* Center content vertically */
+      height: 100%; /* Make sure each li takes full height */
     }
 
     .tab-text {
@@ -640,8 +645,8 @@
 
     .tab-icon {
       display: block;
-      font-size: 24px;
-      margin-bottom: 0;
+      font-size: 36px; /* Increased icon size */
+      margin-bottom: 5px;
     }
 
     .dashboard-tabs li.active {
@@ -650,17 +655,17 @@
     }
 
     body {
-      padding-bottom: 60px;
+      padding-bottom: 120px; /* Adjusted to match new tab bar height */
     }
 
     .dashboard-content {
-      margin-bottom: 60px;
+      margin-bottom: 120px; /* Adjusted to match new tab bar height */
     }
 
     .nav-arrow {
-      display: block; // Keep navigation arrows visible on mobile
-      font-size: 18px;
-      padding: 0 10px;
+      display: block;
+      font-size: 24px; /* Increased arrow size */
+      padding: 0 15px;
     }
   }
 </style>

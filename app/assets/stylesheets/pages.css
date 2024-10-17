@@ -25,3 +25,8 @@ h2 {
 p {
   margin-bottom: 15px;
 }
+
+  body {
+    background-color: black;
+    color: white; /* Adding this to ensure text is visible on the black background */
+  }

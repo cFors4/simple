@@ -138,8 +138,8 @@
 <div id="metrics" class="dashboard-section metrics">
   <h3>Performance Metrics for Be</h3>
   <ul>
-    <li>Investment: <span id="investmentRatio">0</span> (Centeredness/Non-centeredness)</li>
-    <li>Operational Efficiency: <span id="operationalEfficiency">0</span>% (Non-tension vs. tension)</li>
+    <li>Investment (Centeredness/Non-centeredness): <span id="investmentRatio">0</span>%</li>
+    <li>Operational Efficiency (Non-tension vs. tension): <span id="operationalEfficiency">0</span>%</li>
     <li>Throughput:
       <ul>
         <li>Equanimous Non-reactive Observation Moments: <span id="observationMoments">0</span></li>
@@ -238,15 +238,20 @@ function updateCircle() {
   sliders.forEach(slider => {
     total += parseInt(slider.value);
   });
-  const average = total / sliders.length;
+  const average = (total ) / (sliders.length );
   
   const centerPercentage = document.getElementById('centerPercentage');
   centerPercentage.textContent = `${Math.round(average)}%`;
   
   const progressCircle = document.getElementById('progressCircle');
   const circumference = 2 * Math.PI * 90;
-  const offset = circumference - (average / 100) * circumference;
+  const offset = circumference - ((average / 100) * circumference);
+  progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
   progressCircle.style.strokeDashoffset = offset;
+  
+  // Update the color of the progress circle based on the average
+  const hue = Math.round((average / 100) * 120); // 0 to 120 (red to green)
+  progressCircle.style.stroke = `hsl(${hue}, 100%, 50%)`;
 }
 
 // Initialize the circle
