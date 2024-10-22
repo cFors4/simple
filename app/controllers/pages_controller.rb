@@ -98,6 +98,14 @@ class PagesController < ApplicationController
   def conscious_living
   end
 
+  def btc_solution
+    @title = "BTC Solution"
+  end
+
+  def universe_in_fours
+    @title = "Universe in 4's"
+  end
+
   private
 
   def set_page_class

@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   get "system-theory-stack", to: "pages#system_theory_stack"
   get "become-theory-table", to: "pages#become_theory_table"
 
+  # Add this line in the stacks section
+  get "universe-in-fours", to: "pages#universe_in_fours"
 
   # Add this line in the public documentation section
   get "theory-of-everything", to: "pages#theory_of_everything"
@@ -42,4 +44,7 @@ Rails.application.routes.draw do
 
   # Add this line in the public documentation section
   get "conscious-living", to: "pages#conscious_living"
+
+  # Add this line in the public documentation section
+  get "btc-solution", to: "pages#btc_solution"
 end
