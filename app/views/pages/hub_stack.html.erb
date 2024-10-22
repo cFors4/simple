@@ -3,4 +3,101 @@
     background-color: black;
     color: white;
   }
+  
+  .section {
+    margin-bottom: 2rem;
+  }
+  
+  .subsection {
+    margin-left: 1rem;
+  }
 </style>
+
+<div class="container">
+  <h1>Hub Stack</h1>
+  
+  <div class="section">
+    <h2>Therapies + Practices + Metrics + Community + Space</h2>
+    
+    <div class="subsection">
+      <h3>Therapies:</h3>
+      <ul>
+        <li>Sauna</li>
+        <li>Cold plunge/shower</li>
+        <li>Sensory deprivation</li>
+        <li>Grounding</li>
+        <li>Redlight therapies</li>
+      </ul>
+    </div>
+    
+    <div class="subsection">
+      <h3>Practices:</h3>
+      <ul>
+        <li>Meditations (temple/classes)</li>
+        <li>Yoga/Breathwork (class)</li>
+        <li>Calisthenics (open/class) practices</li>
+      </ul>
+    </div>
+    
+    <div class="subsection">
+      <h3>Metrics:</h3>
+      <ul>
+        <li>Biowell (consultation)</li>
+        <li>Blood</li>
+        <li>Gut</li>
+        <li>Sleep</li>
+        <li>Mind (attention)</li>
+        <li>Body composition metrics</li>
+      </ul>
+    </div>
+    
+    <div class="subsection">
+      <h3>Space:</h3>
+      <ul>
+        <li>Class rooms</li>
+        <li>Open gym</li>
+        <li>Temple</li>
+        <li>Utilities</li>
+        <li>Remote work</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="section">
+    <h2>Community + Property + Space dynamics</h2>
+  </div>
+  
+  <div class="section">
+    <h2>Additional Concepts</h2>
+    <ul>
+      <li>Food (minimise inflammation/maximise nutrient density)</li>
+      <li>Supplements</li>
+      <li>Regenerative Farms</li>
+      <li>Bitcoin</li>
+      <li>Pain-alleviating profit</li>
+      <li>Solar</li>
+      <li>Nuclear fission/fusion</li>
+    </ul>
+  </div>
+  
+  <div class="section">
+    <h2>Tech/Systems:</h2>
+    <%= render partial: 'tech_systems' %>
+  </div>
+  
+  <div class="section">
+    <h2>Metrics:</h2>
+    <div class="subsection">
+      <h3>Body:</h3>
+      <%= render partial: 'body_metrics' %>
+    </div>
+    <div class="subsection">
+      <h3>Mind:</h3>
+      <%= render partial: 'mind_metrics' %>
+    </div>
+    <div class="subsection">
+      <h3>Energy:</h3>
+      <%= render partial: 'energy_metrics' %>
+    </div>
+  </div>
+</div>

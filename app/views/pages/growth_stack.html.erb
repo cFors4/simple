@@ -3,4 +3,138 @@
     background-color: black;
     color: white;
   }
+
+  .principles {
+    margin-top: 2rem;
+  }
+
+  .principle {
+    margin-bottom: 1rem;
+  }
+
+  .principle-steps {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .principle-step {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    border: 1px solid white;
+    margin: 0 0.5rem;
+  }
+
+  .principle-step:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .growth-models {
+    margin-top: 2rem;
+  }
+
+  .growth-model {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid white;
+    text-align: center;
+  }
+
+  .growth-models-image {
+    max-width: 100%;
+    height: auto;
+    margin-top: 1rem;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
 </style>
+
+<div class="principles">
+  <h2>Principles</h2>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Peace</div>
+      <div class="principle-step">Agency</div>
+      <div class="principle-step">Effective</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Mindful</div>
+      <div class="principle-step">Competent</div>
+      <div class="principle-step">Sovereign</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Willing</div>
+      <div class="principle-step">Wise</div>
+      <div class="principle-step">Loving</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Principled</div>
+      <div class="principle-step">Practicing</div>
+      <div class="principle-step">Sharing</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Courageous</div>
+      <div class="principle-step">Curious</div>
+      <div class="principle-step">Compassionate</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Consciousness</div>
+      <div class="principle-step">Vibration/Coherence</div>
+      <div class="principle-step">Performance/Competence</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Educate</div>
+      <div class="principle-step">Experience</div>
+      <div class="principle-step">Evolve</div>
+    </div>
+  </div>
+
+  <div class="principle">
+    <div class="principle-steps">
+      <div class="principle-step">Wellbeing</div>
+      <div class="principle-step">Skilfulness</div>
+      <div class="principle-step">Hub</div>
+    </div>
+  </div>
+</div>
+
+<div class="growth-models">
+  <h2>Growth Models</h2>
+
+  <div class="growth-model">1. Discover your Stillness</div>
+  <div class="growth-model">2. Journey your Awakening</div>
+  <div class="growth-model">3. Dissolve your Ego</div>
+  <div class="growth-model">4. Grow your Life</div>
+  <div class="growth-model">5. Operate your Vision</div>
+  <div class="growth-model">6. Open your Perspective</div>
+  <div class="growth-model">7. Elevate your Love</div>
+  <div class="growth-model">8. Know your Truth</div>
+  <div class="growth-model">9. Harmonise your Energy</div>
+  <div class="growth-model">10. Transcend your Thoughts</div>
+
+  <%= image_tag "growth.png", alt: "Mechanisms of Growth", class: "growth-models-image" %>
+</div>

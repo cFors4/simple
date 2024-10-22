@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get "therapy-and-measurement-stack", to: "pages#therapy_and_measurement_stack"
   get "system-theory-stack", to: "pages#system_theory_stack"
   get "become-theory-table", to: "pages#become_theory_table"
-  
+
 
   # Add this line in the public documentation section
   get "theory-of-everything", to: "pages#theory_of_everything"
@@ -39,4 +39,7 @@ Rails.application.routes.draw do
   get "skillful", to: "pages#skillful"
   get "purpose-programming", to: "pages#purpose_programming"
   get "individual-configurability", to: "pages#individual_configurability"
+
+  # Add this line in the public documentation section
+  get "conscious-living", to: "pages#conscious_living"
 end

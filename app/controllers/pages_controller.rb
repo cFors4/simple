@@ -95,6 +95,9 @@ class PagesController < ApplicationController
     @title = "Individual Configurability"
   end
 
+  def conscious_living
+  end
+
   private
 
   def set_page_class
