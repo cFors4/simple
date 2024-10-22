@@ -44,7 +44,7 @@ class PagesController < ApplicationController
   end
 
   def habit_stack
-    @title = "Habit Stack"
+    @title = "Habit Stack (Routine)"
   end
 
   def book_stack

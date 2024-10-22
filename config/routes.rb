@@ -47,4 +47,7 @@ Rails.application.routes.draw do
 
   # Add this line in the public documentation section
   get "btc-solution", to: "pages#btc_solution"
+
+  # Add this line in the stacks section
+  get "habit-stack", to: "pages#habit_stack"
 end
