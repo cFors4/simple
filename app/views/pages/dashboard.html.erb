@@ -318,7 +318,7 @@
   function initFloatingTabBar() {
     const tabBar = document.getElementById('dashboardTabs');
     const tabBarOffset = tabBar.offsetTop;
-    const headerHeight = 60; // Adjust this value based on your application header height
+    const headerHeight = 66; // Increased by 20px (from 60px to 80px)
 
     function updateTabBarPosition() {
       if (window.innerWidth <= 768) {
@@ -373,7 +373,7 @@
 
   .dashboard-tabs.floating {
     position: fixed;
-    top: 60px;
+    top: 80px; /* Changed from 60px to 80px */
     left: 0;
     right: 0;
   }

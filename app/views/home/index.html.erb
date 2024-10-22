@@ -193,10 +193,56 @@
       font-size: 0.9em;
       color: #64b5f6;
     }
+    .search-container {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #1e1e1e;
+      color: #e0e0e0;
+      transition: box-shadow 0.3s ease;
+    }
+    .search-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #64b5f6;
+    }
+    .search-results {
+      background-color: #1e1e1e;
+      border-radius: 5px;
+      margin-top: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      position: absolute;
+      width: 100%;
+      z-index: 1000;
+    }
+    .search-result-item {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+    .search-result-item:last-child {
+      border-bottom: none;
+    }
+    .search-result-item a {
+      color: #e0e0e0;
+      text-decoration: none;
+    }
+    .search-result-item a:hover {
+      color: #64b5f6;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <div class="search-container">
+      <input type="text" class="search-input" placeholder="Search... (Ctrl + K)" aria-label="Search">
+      <div class="search-results" style="display: none;"></div>
+    </div>
 
     <main>
       <section id="who-am-i" class="section">
@@ -236,6 +282,9 @@
           <a href="mailto:cfors@hey.com">Email me</a>
           <a href="https://cal.com/cfors/30min">Schedule some time with me</a>
           <a href="https://www.dhamma.org/en/schedules/schdipa">10 day Vipassana Course</a>
+          <a href="https://cal.com/cfors/30min">Chat with me over a cup of coffee</a>
+          <a href="https://cal.com/cfors/30min">Discuss a project / idea / startup / opportunity</a>
+          <a href="https://cal.com/cfors/30min">Software and Systems Engineering Consulting</a>
           <%# skool communuity, courses, dashboard, other startups e.g.  %>
         </div>
       </section>
@@ -332,6 +381,86 @@
             behavior: 'smooth'
           });
         });
+      });
+    });
+
+    // Search functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const searchInput = document.querySelector('.search-input');
+      const searchResults = document.querySelector('.search-results');
+      const mainContent = document.querySelector('main');
+
+      function performSearch() {
+        const query = searchInput.value.toLowerCase();
+        if (query.length === 0) {
+          searchResults.style.display = 'none';
+          return;
+        }
+
+        const sections = mainContent.querySelectorAll('section');
+        const results = new Set(); // Use a Set to avoid duplicates
+
+        sections.forEach(section => {
+          const sectionText = section.textContent.toLowerCase();
+          const sectionTitle = section.querySelector('h2').textContent;
+          const sectionId = section.id;
+
+          if (sectionText.includes(query)) {
+            results.add(JSON.stringify({ title: sectionTitle, id: sectionId, type: 'section' }));
+          }
+
+          const links = section.querySelectorAll('.links a');
+          links.forEach(link => {
+            const linkText = link.textContent.toLowerCase();
+            const linkHref = link.getAttribute('href');
+            if (linkText.includes(query) || linkHref.includes(query)) {
+              results.add(JSON.stringify({ title: link.textContent, href: linkHref, type: 'link' }));
+            }
+          });
+        });
+
+        // Search for links outside of sections
+        const allLinks = mainContent.querySelectorAll('a:not(.links a)');
+        allLinks.forEach(link => {
+          const linkText = link.textContent.toLowerCase();
+          const linkHref = link.getAttribute('href');
+          if (linkText.includes(query) || linkHref.includes(query)) {
+            results.add(JSON.stringify({ title: link.textContent, href: linkHref, type: 'link' }));
+          }
+        });
+
+        if (results.size > 0) {
+          searchResults.innerHTML = Array.from(results).map(resultString => {
+            const result = JSON.parse(resultString);
+            if (result.type === 'section') {
+              return `<div class="search-result-item">
+                        <a href="#${result.id}">${result.title} (Section)</a>
+                      </div>`;
+            } else {
+              return `<div class="search-result-item">
+                        <a href="${result.href}">${result.title}</a>
+                      </div>`;
+            }
+          }).join('');
+          searchResults.style.display = 'block';
+        } else {
+          searchResults.style.display = 'none';
+        }
+      }
+
+      searchInput.addEventListener('input', performSearch);
+
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          searchInput.focus();
+        }
+      });
+
+      document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+          searchResults.style.display = 'none';
+        }
       });
     });
   </script>
